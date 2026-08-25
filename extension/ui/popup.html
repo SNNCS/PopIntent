@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>PopIntent</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body class="popup">
+    <header>
+      <h1>PopIntent</h1>
+      <p id="domain">Loading…</p>
+    </header>
+    <label class="row"><span>Protection</span><input id="global-enabled" type="checkbox"></label>
+    <label class="stack"><span>This site</span>
+      <select id="site-mode">
+        <option value="default">Default protection</option>
+        <option value="strict">Strict protection</option>
+        <option value="paused">Paused</option>
+      </select>
+    </label>
+    <section aria-labelledby="recent-heading">
+      <h2 id="recent-heading">Recent block</h2>
+      <p id="recent">Loading…</p>
+      <div class="actions">
+        <button id="open-once" type="button" hidden>Open anyway</button>
+        <button id="mark-incorrect" type="button" class="secondary" hidden>Incorrect block</button>
+      </div>
+    </section>
+    <button id="report-missed" type="button" class="secondary wide">Report a missed redirect</button>
+    <button id="open-options" type="button" class="link wide">History and privacy</button>
+    <p id="feedback" class="feedback" aria-live="polite"></p>
+    <script src="popup.js"></script>
+  </body>
+</html>

@@ -1,0 +1,38 @@
+{
+  "manifest_version": 3,
+  "name": "PopIntent",
+  "version": "0.1.0",
+  "description": "Blocks unexpected popup tabs while keeping browsing data on your device.",
+  "permissions": ["storage", "webNavigation", "declarativeNetRequest"],
+  "host_permissions": ["http://*/*", "https://*/*"],
+  "background": {
+    "service_worker": "background/service-worker.js",
+    "type": "module"
+  },
+  "action": {
+    "default_title": "PopIntent",
+    "default_popup": "ui/popup.html"
+  },
+  "options_page": "ui/options.html",
+  "content_scripts": [
+    {
+      "matches": ["http://*/*", "https://*/*"],
+      "js": ["content/gesture-tracker.js"],
+      "run_at": "document_start",
+      "all_frames": true,
+      "match_about_blank": true,
+      "match_origin_as_fallback": true,
+      "world": "ISOLATED"
+    }
+  ],
+  "declarative_net_request": {
+    "rule_resources": [
+      {
+        "id": "known_redirectors",
+        "enabled": true,
+        "path": "rules/known-redirectors.json"
+      }
+    ]
+  },
+  "incognito": "spanning"
+}

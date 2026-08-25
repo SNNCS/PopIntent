@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>PopIntent settings</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body class="options">
+    <main>
+      <h1>PopIntent settings</h1>
+      <p>PopIntent does not upload URLs, domains, history, or diagnostics.</p>
+      <section>
+        <h2>Validation totals</h2>
+        <p id="counters">Loading…</p>
+        <button id="export-summary" type="button">Export aggregate JSON</button>
+      </section>
+      <section>
+        <h2>Site overrides</h2>
+        <ul id="sites"></ul>
+      </section>
+      <section>
+        <h2>Recent blocks</h2>
+        <p>Only source domain, target domain, reason, time, and your verdict are kept for seven days.</p>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Time</th><th>Source</th><th>Target</th><th>Reason</th><th>Verdict</th></tr></thead>
+            <tbody id="events-body"></tbody>
+          </table>
+        </div>
+        <button id="clear-history" type="button" class="danger">Clear history</button>
+      </section>
+      <section>
+        <h2>Known limits</h2>
+        <p>PopIntent cannot protect browser-internal pages and does not promise to stop every same-tab or server redirect.</p>
+      </section>
+    </main>
+    <script src="options.js"></script>
+  </body>
+</html>
