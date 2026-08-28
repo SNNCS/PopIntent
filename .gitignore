@@ -1,6 +1,9 @@
 node_modules/
 dist/
+dist-beta/
+dist-diagnostic/
 test-results/
 playwright-report/
 release/
 *.zip
+PopIntent-HANDOFF.md

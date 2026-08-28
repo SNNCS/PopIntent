@@ -19,6 +19,7 @@ button:focus-visible, select:focus-visible, input:focus-visible { outline: 3px s
 .link { color: #155eef; border-color: transparent; background: transparent; }
 .wide { width: 100%; margin-top: 8px; }
 .actions { display: flex; gap: 8px; flex-wrap: wrap; }
+.actions .danger { margin-top: 0; }
 .feedback { min-height: 20px; color: #067647; }
 section { border-top: 1px solid #e4e7ec; margin-top: 14px; padding-top: 2px; }
 .table-wrap { overflow-x: auto; }

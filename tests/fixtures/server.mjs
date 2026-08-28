@@ -29,6 +29,34 @@ const pages = {
       });
     </script>
   </body></html>`,
+  "/same-tab-guard-source": `<!doctype html><html><body>
+    <div id="abuse" tabindex="0">Dismiss advertisement</div>
+    <a id="continue" href="/same-tab-guarded-landing">Read article</a>
+    <a id="continue-user" href="/same-tab-user-landing">Open interactive article</a>
+    <a id="continue-first-party" href="/same-tab-first-party-landing">Open local article</a>
+    <script>
+      document.querySelector('#abuse').addEventListener('click', () => window.open('/ad', '_blank'));
+    </script>
+  </body></html>`,
+  "/same-tab-plain-source": `<!doctype html><html><body>
+    <a id="continue" href="/same-tab-guarded-landing">Read article</a>
+  </body></html>`,
+  "/same-tab-guarded-landing": `<!doctype html><html><body>
+    <h1>Legitimate destination</h1>
+    <script>
+      setTimeout(() => { location.href = 'http://localhost:4173/ad'; }, 500);
+    </script>
+  </body></html>`,
+  "/same-tab-user-landing": `<!doctype html><html><body>
+    <h1>Interactive destination</h1>
+    <a id="external" href="http://localhost:4173/legitimate">Continue externally</a>
+  </body></html>`,
+  "/same-tab-first-party-landing": `<!doctype html><html><body>
+    <h1>Local destination</h1>
+    <script>
+      setTimeout(() => { location.href = '/legitimate'; }, 500);
+    </script>
+  </body></html>`,
   "/overlay": `<!doctype html><html><head><style>
     body { margin: 0; min-height: 100vh; display: grid; place-items: center; }
     #underlying { width: 180px; height: 60px; }
@@ -40,6 +68,14 @@ const pages = {
   "/iframe-overlay": `<!doctype html><html><body>
     <h1>Embedded player</h1>
     <iframe id="player" title="Embedded player" src="/overlay-frame" width="640" height="360"></iframe>
+  </body></html>`,
+  "/cross-origin-iframe-popup": `<!doctype html><html><body>
+    <h1>Embedded player</h1>
+    <iframe id="player" title="Embedded player" src="http://localhost:4173/script-popup" width="640" height="360"></iframe>
+  </body></html>`,
+  "/cross-origin-iframe-overlay": `<!doctype html><html><body>
+    <h1>Embedded player</h1>
+    <iframe id="player" title="Embedded player" src="http://localhost:4173/overlay-frame" width="640" height="360"></iframe>
   </body></html>`,
   "/overlay-frame": `<!doctype html><html><head><style>
     html, body { margin: 0; width: 100%; height: 100%; }

@@ -11,13 +11,21 @@
   "packageManager": "pnpm@11.19.0",
   "scripts": {
     "build": "node scripts/build.mjs",
+    "build:beta": "node scripts/build.mjs --beta",
+    "build:diagnostic": "node scripts/build.mjs --diagnostic",
     "check": "pnpm typecheck && pnpm test",
     "package": "pnpm build && pnpm verify:dist && powershell -NoProfile -ExecutionPolicy Bypass -File scripts/package.ps1",
+    "package:beta": "pnpm store:assets && pnpm build:beta && pnpm verify:beta && powershell -NoProfile -ExecutionPolicy Bypass -File scripts/package-beta.ps1",
+    "package:diagnostic": "pnpm build:diagnostic && pnpm verify:diagnostic && powershell -NoProfile -ExecutionPolicy Bypass -File scripts/package-diagnostic.ps1",
+    "store:assets": "node scripts/create-store-assets.mjs",
     "test": "vitest run",
     "test:watch": "vitest",
     "test:e2e": "playwright test",
+    "test:e2e:diagnostic": "playwright test -c playwright.diagnostic.config.ts",
     "typecheck": "tsc --noEmit",
-    "verify:dist": "node scripts/verify-dist.mjs"
+    "verify:dist": "node scripts/verify-dist.mjs",
+    "verify:beta": "node scripts/verify-dist.mjs --beta",
+    "verify:diagnostic": "node scripts/verify-dist.mjs --diagnostic"
   },
   "devDependencies": {
     "@playwright/test": "1.62.1",

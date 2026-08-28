@@ -5,7 +5,8 @@ export type BlockReason =
   | "overlay_hijack"
   | "target_mismatch"
   | "known_redirector"
-  | "strict_unproven";
+  | "strict_unproven"
+  | "same_tab_redirect";
 
 export interface GestureSnapshot {
   occurredAt: number;

@@ -1,8 +1,7 @@
 import type { RuntimeMessage, UiState } from "../shared/contracts";
 
 const domain = document.querySelector<HTMLElement>("#domain")!;
-const globalToggle = document.querySelector<HTMLInputElement>("#global-enabled")!;
-const siteMode = document.querySelector<HTMLSelectElement>("#site-mode")!;
+const globalMode = document.querySelector<HTMLSelectElement>("#global-mode")!;
 const recent = document.querySelector<HTMLElement>("#recent")!;
 const openOnce = document.querySelector<HTMLButtonElement>("#open-once")!;
 const markIncorrect = document.querySelector<HTMLButtonElement>("#mark-incorrect")!;
@@ -15,13 +14,8 @@ let state: UiState | null = null;
 
 void refresh();
 
-globalToggle.addEventListener("change", async () => {
-  await send({ type: "set_global_enabled", enabled: globalToggle.checked });
-  await refresh();
-});
-
-siteMode.addEventListener("change", async () => {
-  await send({ type: "set_site_mode", sourceUrl, mode: siteMode.value as UiState["siteMode"] });
+globalMode.addEventListener("change", async () => {
+  await send({ type: "set_global_mode", mode: globalMode.value as UiState["mode"] });
   await refresh();
 });
 
@@ -50,9 +44,7 @@ async function refresh(): Promise<void> {
   sourceUrl = tab?.url ?? "";
   state = (await send({ type: "get_ui_state", sourceUrl })) as UiState;
   domain.textContent = state.domain ?? "Unsupported page";
-  globalToggle.checked = state.globalEnabled;
-  siteMode.value = state.siteMode;
-  siteMode.disabled = state.domain === null;
+  globalMode.value = state.mode;
   if (state.lastEvent === null) {
     recent.textContent = "No recent blocks on this site.";
     openOnce.hidden = true;

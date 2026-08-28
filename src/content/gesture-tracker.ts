@@ -1,14 +1,10 @@
 import { isHighConfidenceOverlay, type OverlayEvidence } from "../core/overlay-classifier";
 import type { GestureRecord, RuntimeMessage } from "../shared/contracts";
 
-let globalEnabled = true;
-let siteMode: "default" | "paused" | "strict" = "default";
+let globalMode: "default" | "paused" | "strict" = "default";
 
-void sendMessage({ type: "get_site_state", sourceUrl: location.href }).then((state) => {
-  if (isSiteState(state)) {
-    globalEnabled = state.globalEnabled;
-    siteMode = state.siteMode;
-  }
+void sendMessage({ type: "get_global_state" }).then((state) => {
+  if (isGlobalState(state)) globalMode = state.mode;
 });
 
 document.addEventListener("pointerdown", handlePointerDown, true);
@@ -16,10 +12,7 @@ document.addEventListener("keydown", handleKeyDown, true);
 
 chrome.runtime.onMessage.addListener((message: RuntimeMessage) => {
   if (message.type === "show_blocked") showBlockedToast(message);
-  if (message.type === "site_state_changed") {
-    globalEnabled = message.globalEnabled;
-    siteMode = message.siteMode;
-  }
+  if (message.type === "global_mode_changed") globalMode = message.mode;
 });
 
 function handlePointerDown(event: PointerEvent): void {
@@ -30,7 +23,7 @@ function handlePointerDown(event: PointerEvent): void {
   const gesture = createGesture(event, actionable, overlayHijack);
   void sendMessage({ type: "record_gesture", gesture });
 
-  if (!globalEnabled || siteMode === "paused" || !overlayHijack || overlay === null) return;
+  if (globalMode === "paused" || !overlayHijack || overlay === null) return;
 
   event.preventDefault();
   event.stopImmediatePropagation();
@@ -56,6 +49,13 @@ function handleKeyDown(event: KeyboardEvent): void {
     semanticControl: true,
     overlayHijack: false
   };
+  DIAGNOSTIC: if (__POPINTENT_DIAGNOSTIC__) {
+    gesture.diagnostic = {
+      inputType: "keyboard",
+      targetKind: diagnosticTargetKind(actionable),
+      topFrame: window === window.top
+    };
+  }
   void sendMessage({ type: "record_gesture", gesture });
 }
 
@@ -64,7 +64,7 @@ function createGesture(
   actionable: HTMLElement | null,
   overlayHijack: boolean
 ): GestureRecord {
-  return {
+  const gesture: GestureRecord = {
     occurredAt: Date.now(),
     sourceUrl: location.href,
     incognito: chrome.extension.inIncognitoContext,
@@ -78,6 +78,27 @@ function createGesture(
     semanticControl: actionable !== null,
     overlayHijack
   };
+  DIAGNOSTIC: if (__POPINTENT_DIAGNOSTIC__) {
+    gesture.diagnostic = {
+      inputType: "pointer",
+      targetKind: diagnosticTargetKind(actionable),
+      topFrame: window === window.top,
+      pointerButton: event.button
+    };
+  }
+  return gesture;
+}
+
+function diagnosticTargetKind(
+  element: HTMLElement | null
+): NonNullable<GestureRecord["diagnostic"]>["targetKind"] {
+  if (element === null) return "none";
+  if (element instanceof HTMLAnchorElement || element instanceof HTMLAreaElement) return "anchor";
+  if (element instanceof HTMLButtonElement) return "button";
+  if (element instanceof HTMLInputElement) return "input";
+  if (element.getAttribute("role") === "button") return "role_button";
+  if (element.getAttribute("role") === "link") return "role_link";
+  return "other";
 }
 
 function findActionable(path: EventTarget[]): HTMLElement | null {
@@ -187,8 +208,8 @@ function showBlockedToast(message: Extract<RuntimeMessage, { type: "show_blocked
     });
   }
   actions.push({
-    label: "Pause this site",
-    run: () => void sendMessage({ type: "set_site_mode", sourceUrl: location.href, mode: "paused" })
+    label: "Pause everywhere",
+    run: () => void sendMessage({ type: "set_global_mode", mode: "paused" })
   });
   actions.push({
     label: "Incorrect block",
@@ -197,7 +218,9 @@ function showBlockedToast(message: Extract<RuntimeMessage, { type: "show_blocked
   const text =
     message.event.action === "prevented_click"
       ? "PopIntent blocked a transparent layer. Click again to use the control underneath."
-      : `PopIntent closed an unexpected tab (${message.event.reason}).`;
+      : message.event.action === "prevented_navigation"
+        ? "PopIntent stopped an unexpected same-tab redirect."
+        : `PopIntent closed an unexpected tab (${message.event.reason}).`;
   showNotice(text, actions);
 }
 
@@ -240,13 +263,10 @@ function showNotice(
   setTimeout(() => host.remove(), actions.length > 0 ? 10_000 : 4_000);
 }
 
-function isSiteState(value: unknown): value is { globalEnabled: boolean; siteMode: typeof siteMode } {
+function isGlobalState(value: unknown): value is { mode: typeof globalMode } {
   if (typeof value !== "object" || value === null) return false;
   const state = value as Record<string, unknown>;
-  return (
-    typeof state.globalEnabled === "boolean" &&
-    (state.siteMode === "default" || state.siteMode === "paused" || state.siteMode === "strict")
-  );
+  return state.mode === "default" || state.mode === "paused" || state.mode === "strict";
 }
 
 async function sendMessage(message: RuntimeMessage): Promise<unknown> {

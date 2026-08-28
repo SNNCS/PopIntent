@@ -40,11 +40,13 @@ Open the extension's **Details** page and explicitly enable access in Incognito/
 Run this checklist in the current stable Chrome and Edge before giving the ZIP to testers:
 
 - The extension loads with no manifest or service-worker error.
-- The popup shows the active HTTP(S) domain and changes Default/Strict/Paused mode.
+- The popup shows the active HTTP(S) domain and changes the global Default/Strict/Paused mode.
 - `tests/fixtures/server.mjs` plus `http://127.0.0.1:4173/intentional` opens the legitimate tab.
 - `/target-mismatch` closes the unexpected tab and shows **Open anyway**.
 - `/overlay` and `/iframe-overlay` do not open the ad tab and show a notice.
-- Global off and per-site Paused both allow `/target-mismatch`.
+- In global Strict mode, `/same-tab-guard-source` → `#abuse` → `#continue` returns to the intended page after blocking the delayed third-party same-tab redirect and offers **Open anyway**.
+- The same fixture still allows `#continue-user` followed by its visible external link, allows the first-party automatic fixture, and permits the delayed redirect when there was no preceding abuse signal.
+- Global Paused mode allows `/target-mismatch`.
 - Settings shows domain-only events, can mark an event incorrect, exports aggregate JSON, and clears history.
 - Browser restart preserves settings/history but removes expired session undo data.
 - With Incognito/InPrivate access enabled, a private block does not appear in normal Settings afterward.

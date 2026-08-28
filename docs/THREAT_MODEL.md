@@ -12,8 +12,9 @@ PopIntent evaluates HTTP(S) pages and frames for:
 2. A child tab created without a recent user gesture.
 3. A nearly transparent fixed/absolute element covering at least 60% of the viewport, with no visible paint, above a real actionable control.
 4. In Strict mode, a script-created popup whose destination was not explicit in the clicked control.
+5. In Strict mode, a third-party top-level navigation initiated without a new trusted gesture within three seconds after an explicit same-tab destination commits, but only when the source tab had a recent high-confidence popup or transparent-overlay block.
 
-An `about:blank` child is held as pending for up to five seconds so its first HTTP(S) commit can be evaluated. Gesture evidence is considered stale after 1.5 seconds.
+An `about:blank` child is held as pending for up to five seconds so its first HTTP(S) commit can be evaluated. Gesture evidence is considered stale after 1.5 seconds. A same-tab guard may wait up to ten seconds for the explicit destination to commit, then protects only that tab and destination initiator for three seconds. First-party requests are not blocked.
 
 ## Attacker assumptions
 
@@ -23,7 +24,7 @@ The content script runs in an isolated world and captures trusted pointer/keyboa
 
 ## Out of scope
 
-- Same-tab JavaScript navigation and HTTP server redirects.
+- Same-tab JavaScript navigation and HTTP server redirects that do not follow the Strict high-confidence chain above, including redirects after its short protection window.
 - Deceptive but visible buttons, links, consent text, or download prompts.
 - Ads and trackers that do not hijack a navigation gesture.
 - Browser-internal, extension, `file:`, and other non-HTTP(S) pages.
@@ -35,8 +36,10 @@ PopIntent is not a malware scanner, content blocker, parental-control tool, or s
 ## False-positive controls
 
 - Default mode permits ambiguous script-created popups after a recent gesture.
-- Strict behavior is opt-in per domain.
-- A domain can be paused immediately.
+- An ambiguous `strict_unproven` popup from a visible semantic control is not sufficient evidence to arm the same-tab guard.
+- The same-tab guard is limited to Strict mode, one tab, one expected initiator, third-party main-frame requests, and a three-second post-commit window. A new trusted gesture, Paused/Default, tab closure, or expiry removes it.
+- Default, Strict, and Paused are selected globally and apply to every page and descendant frame.
+- Protection can be paused everywhere immediately.
 - A safely parseable HTTP(S) target can be reopened once for 60 seconds.
 - The user can mark a block incorrect, and only aggregate counts are exported.
 - Packaged domain rules must be static, reviewable, reproducible, and narrowly scoped. The 0.1.0 list is empty.
@@ -51,4 +54,4 @@ PopIntent is not a malware scanner, content blocker, parental-control tool, or s
 
 ## Known residual risks
 
-A page can avoid the current detector by navigating the same tab, delaying beyond the gesture window, presenting a visibly painted overlay, or making the unexpected target resemble the declared target. Some browser flows legitimately produce mismatched or unproven targets, so stronger blocking remains per-site opt-in. The validation gate exists to quantify those misses and breakages before public distribution.
+A page can avoid the current detector by navigating the same tab without a preceding high-confidence abuse signal, delaying beyond the short guard window, presenting a visibly painted overlay, or making the unexpected target resemble the declared target. A legitimate authentication or payment flow can still resemble the guarded sequence, so a blocked same-tab destination remains recoverable with **Open anyway** and stronger global Strict blocking remains opt-in. The validation gate exists to quantify those misses and breakages before public distribution.

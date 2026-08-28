@@ -14,7 +14,7 @@ PopIntent 0.1.0 is a sideload-only experiment. Do not publish it in the Chrome W
 1. Record browser/version and the participant's recent problem scenario without collecting browsing history.
 2. Sideload the same signed-off ZIP and keep Default mode for the first week.
 3. Ask participants to use **Incorrect block** for false positives, **Report a missed redirect** for misses, and **Open anyway** when they deliberately override a block.
-4. Use Strict mode only on domains where the participant continues to see problems.
+4. Switch to global Strict mode only during targeted browsing sessions where Default continues to miss unwanted popups; return to Default when checking ordinary workflows.
 5. At days 7, 14, and 21, have each participant export the aggregate JSON and answer three short questions: Did it stop a real problem? Did it break a task? Would you keep it installed?
 6. Collect reproduction steps separately only with the participant's consent. Never request private URLs, account pages, or screenshots containing personal data.
 
@@ -36,7 +36,7 @@ Treat **Open anyway** as a false-positive review signal, not automatically as a 
 
 Stop the trial and fix before continuing if PopIntent causes data loss, repeatedly breaks authentication/payment, persists private browsing activity, requests an unexplained permission, or produces a reproducible bypass that turns a supposedly prevented click into navigation.
 
-If effectiveness is below 80%, do not compensate by globally enabling Strict mode. Classify the missed mechanisms first and decide whether they fit the narrow threat model. If false positives exceed 2%, make the detector more conservative or narrow the protected interaction.
+If effectiveness is below 80%, do not compensate by leaving Strict mode enabled for the whole cohort. Classify the missed mechanisms first and decide whether they fit the narrow threat model. If false positives exceed 2%, make the detector more conservative or narrow the protected interaction.
 
 ## Decision record
 

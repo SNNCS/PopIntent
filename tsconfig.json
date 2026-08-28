@@ -10,5 +10,5 @@
     "noEmit": true,
     "useDefineForClassFields": true
   },
-  "include": ["src", "tests", "vitest.config.ts", "playwright.config.ts"]
+  "include": ["src", "tests", "vitest.config.ts", "playwright.config.ts", "playwright.diagnostic.config.ts"]
 }

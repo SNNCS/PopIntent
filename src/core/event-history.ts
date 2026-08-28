@@ -6,7 +6,7 @@ export interface BlockEvent {
   sourceDomain: string;
   targetDomain: string;
   reason: BlockReason;
-  action: "prevented_click" | "closed_tab";
+  action: "prevented_click" | "prevented_navigation" | "closed_tab";
   verdict: "unrated" | "correct" | "false_positive";
   incognito: boolean;
 }

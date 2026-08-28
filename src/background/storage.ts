@@ -1,18 +1,24 @@
 import { pruneEventHistory, type BlockEvent } from "../core/event-history";
 import {
+  buildDiagnosticExport,
+  pruneDiagnosticTrace,
+  type DiagnosticEvent
+} from "../core/diagnostic-trace";
+import {
   buildValidationSummary,
   type ValidationCounters
 } from "../core/validation-summary";
 import type { Settings } from "../shared/contracts";
+import type { SiteMode } from "../core/navigation-classifier";
 
 const SETTINGS_KEY = "settings";
 const EVENTS_KEY = "events";
 const COUNTERS_KEY = "validationCounters";
+const DIAGNOSTIC_EVENTS_KEY = "diagnosticEvents";
 let localMutationQueue: Promise<void> = Promise.resolve();
 
 export const DEFAULT_SETTINGS: Settings = {
-  globalEnabled: true,
-  siteModes: {}
+  mode: "default"
 };
 
 export const DEFAULT_COUNTERS: ValidationCounters = {
@@ -43,13 +49,39 @@ async function readCounters(): Promise<ValidationCounters> {
   return { ...DEFAULT_COUNTERS, ...(result[COUNTERS_KEY] as Partial<ValidationCounters>) };
 }
 
+async function readDiagnosticTrace(now: number): Promise<DiagnosticEvent[]> {
+  const result = await chrome.storage.local.get(DIAGNOSTIC_EVENTS_KEY);
+  return pruneDiagnosticTrace(
+    (result[DIAGNOSTIC_EVENTS_KEY] as DiagnosticEvent[] | undefined) ?? [],
+    now
+  );
+}
+
 export async function getSettings(): Promise<Settings> {
   const result = await chrome.storage.local.get(SETTINGS_KEY);
-  const stored = result[SETTINGS_KEY] as Partial<Settings> | undefined;
-  return {
-    globalEnabled: stored?.globalEnabled ?? true,
-    siteModes: stored?.siteModes ?? {}
-  };
+  const stored = result[SETTINGS_KEY] as
+    | {
+        mode?: unknown;
+        globalEnabled?: unknown;
+        siteModes?: unknown;
+      }
+    | undefined;
+  if (isSiteMode(stored?.mode)) return { mode: stored.mode };
+  if (stored?.globalEnabled === false) return { mode: "paused" };
+  if (hasLegacyStrictMode(stored?.siteModes)) return { mode: "strict" };
+  return { ...DEFAULT_SETTINGS };
+}
+
+function isSiteMode(value: unknown): value is SiteMode {
+  return value === "default" || value === "strict" || value === "paused";
+}
+
+function hasLegacyStrictMode(value: unknown): boolean {
+  return (
+    typeof value === "object" &&
+    value !== null &&
+    Object.values(value as Record<string, unknown>).some((mode) => mode === "strict")
+  );
 }
 
 export async function saveSettings(settings: Settings): Promise<void> {
@@ -119,5 +151,39 @@ export async function exportSummary(browser: string): Promise<ReturnType<typeof 
     exportedAt: Date.now(),
     events: await getHistory(),
     counters: await getCounters()
+  });
+}
+
+export async function appendDiagnosticEvent(
+  event: DiagnosticEvent,
+  incognito: boolean
+): Promise<void> {
+  if (incognito) return;
+  await runLocalMutation(async () => {
+    const events = await readDiagnosticTrace(event.occurredAt);
+    await chrome.storage.local.set({
+      [DIAGNOSTIC_EVENTS_KEY]: pruneDiagnosticTrace([event, ...events], event.occurredAt)
+    });
+  });
+}
+
+export async function getDiagnosticTrace(now = Date.now()): Promise<DiagnosticEvent[]> {
+  return runLocalMutation(async () => {
+    const events = await readDiagnosticTrace(now);
+    await chrome.storage.local.set({ [DIAGNOSTIC_EVENTS_KEY]: events });
+    return events;
+  });
+}
+
+export async function clearDiagnosticTrace(): Promise<void> {
+  await runLocalMutation(() => chrome.storage.local.set({ [DIAGNOSTIC_EVENTS_KEY]: [] }));
+}
+
+export async function exportDiagnosticTrace(browser: string): Promise<ReturnType<typeof buildDiagnosticExport>> {
+  return buildDiagnosticExport({
+    extensionVersion: chrome.runtime.getManifest().version,
+    browser,
+    exportedAt: Date.now(),
+    events: await getDiagnosticTrace()
   });
 }
