@@ -1,4 +1,5 @@
 import { isHighConfidenceOverlay, type OverlayEvidence } from "../core/overlay-classifier";
+import { isIncognitoExtensionContext } from "../core/browser-context";
 import type { GestureRecord, RuntimeMessage } from "../shared/contracts";
 
 let globalMode: "default" | "paused" | "strict" = "default";
@@ -43,7 +44,7 @@ function handleKeyDown(event: KeyboardEvent): void {
   const gesture: GestureRecord = {
     occurredAt: Date.now(),
     sourceUrl: location.href,
-    incognito: chrome.extension.inIncognitoContext,
+    incognito: isIncognitoExtensionContext(chrome.extension),
     explicitDestination: explicitDestination(actionable),
     explicitNewTabIntent: event.ctrlKey || event.metaKey || event.shiftKey,
     semanticControl: true,
@@ -67,7 +68,7 @@ function createGesture(
   const gesture: GestureRecord = {
     occurredAt: Date.now(),
     sourceUrl: location.href,
-    incognito: chrome.extension.inIncognitoContext,
+    incognito: isIncognitoExtensionContext(chrome.extension),
     explicitDestination: explicitDestination(actionable),
     explicitNewTabIntent:
       event.button === 1 ||
