@@ -77,6 +77,8 @@ Use aggregate surfaces already controlled by the user:
 
 Do not add in-extension telemetry merely to measure launch performance. Record a dated weekly snapshot in a local Markdown note, and do not publish private URLs, browsing histories, or user identities.
 
+The launch baseline is recorded in [METRICS_2026-09-03.md](METRICS_2026-09-03.md).
+
 ## Success test
 
 Exposure is useful only if it finds the right users. Prefer ten people who recently experienced click-hijacked popups and can provide reproducible feedback over a large number of untargeted installs. The 21-day gate in [VALIDATION.md](VALIDATION.md) remains the decision point for dropping the Beta label and making stronger claims.
