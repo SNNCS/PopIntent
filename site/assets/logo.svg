@@ -1,0 +1,7 @@
+<svg width="128" height="128" viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title">
+  <title id="title">PopIntent shield</title>
+  <rect x="16" y="16" width="96" height="96" rx="26" fill="#155eef"/>
+  <path d="M64 31 92 42v21c0 19-10 32-28 42-18-10-28-23-28-42V42l28-11Z" fill="#fff"/>
+  <rect x="48" y="49" width="32" height="24" rx="5" fill="none" stroke="#155eef" stroke-width="7"/>
+  <path d="m48 83 32-32" stroke="#155eef" stroke-width="7" stroke-linecap="round"/>
+</svg>

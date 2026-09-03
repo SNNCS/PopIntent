@@ -1,6 +1,10 @@
-# Sideload PopIntent in Chrome and Edge
+# Install or sideload PopIntent in Chrome and Edge
 
-Use the unpacked `dist` directory for development. If you received `popintent-0.1.0.zip`, extract it first and select the extracted directory that directly contains `manifest.json`.
+For ordinary Microsoft Edge use, install [PopIntent Beta from Microsoft Edge Add-ons](https://microsoftedge.microsoft.com/addons/detail/laodoihicammlibklbcfafhpkkgabdji) so the browser can deliver reviewed updates. As of 2026-09-03, the listing is Live and Public. Chrome distribution remains an unlisted Beta.
+
+Use the sideload steps below for development, reproducible debugging, or verification of an exact local artifact.
+
+Use the unpacked `dist` directory for development. If you received `popintent-0.1.1.zip`, extract it first and select the extracted directory that directly contains `manifest.json`.
 
 ## Build
 

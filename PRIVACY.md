@@ -1,6 +1,6 @@
 # PopIntent privacy notice
 
-Effective for validation build and unlisted Beta 0.1.0.
+Effective for PopIntent Beta 0.1.1, including sideloaded builds, the unlisted Chrome distribution, and the Microsoft Edge Add-ons distribution.
 
 PopIntent performs detection locally inside the browser. It has no backend, account system, analytics, crash reporter, advertising SDK, remote configuration, or telemetry endpoint. The extension does not sell, transmit, or share browsing data.
 
@@ -21,7 +21,7 @@ The exported validation JSON contains version/browser metadata, date range, and 
 
 ## Incognito
 
-Chrome and Edge require the user to opt in before an extension can run in private browsing. PopIntent does not persist incognito block events or increment persistent validation counters for incognito activity. Temporary gesture and undo records may exist in session memory only long enough to make the current interaction work.
+Chrome and Edge require the user to opt in before an extension can run in private browsing. PopIntent does not persist incognito block events or increment persistent validation counters for incognito activity. The background worker accepts private-browsing status only from browser-owned tab metadata; if that metadata is unavailable, persistent writes are disabled. Temporary gesture and undo records may exist in session memory only long enough to make the current interaction work.
 
 ## Network behavior
 

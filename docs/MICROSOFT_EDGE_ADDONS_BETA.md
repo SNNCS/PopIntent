@@ -1,19 +1,32 @@
-# Microsoft Edge Add-ons hidden Beta listing
+# Microsoft Edge Add-ons Beta listing
 
-This document is the source of truth for the PopIntent Beta listing in Microsoft Partner Center. Visibility must remain **Hidden** until the validation gate passes.
+This document is the source of truth for the PopIntent Beta listing in Microsoft Partner Center.
+
+## Submission status
+
+Status as of 2026-09-03 (Asia/Kuala_Lumpur):
+
+- Listing: https://microsoftedge.microsoft.com/addons/detail/laodoihicammlibklbcfafhpkkgabdji
+- Store ID: `0RDCKG592QX9`
+- CRX ID: `laodoihicammlibklbcfafhpkkgabdji`
+- Product ID: `58582884-e4ff-411d-926b-2da31e5fc1b8`
+- Current live submission: version 0.1.0, **Live**, **Public**.
+- Next candidate: version 0.1.1 privacy, onboarding, and release-tooling update.
+
+Partner Center confirmed Public visibility on 2026-09-03. The visibility submission did not change the 0.1.0 package, permissions, privacy disclosures, markets, pricing, or in-product purchase status.
 
 ## Availability
 
-- Visibility: Hidden
+- Visibility: Public
 - Markets: All markets
 - Pricing: Free
 - In-product purchases: None
 
 ## Properties
 
-- Category: Choose the closest available privacy, security, or productivity category in Partner Center.
-- Website: https://github.com/SNNCS/PopIntent
-- Support: https://github.com/SNNCS/PopIntent/issues
+- Category: Productivity
+- Website: https://snncs.github.io/PopIntent/
+- Support: https://github.com/SNNCS/PopIntent/issues/new?template=redirect-report.yml
 - Mature content: No
 
 ## Privacy
@@ -38,11 +51,11 @@ This document is the source of truth for the PopIntent Beta listing in Microsoft
 
 **Name:** PopIntent Beta
 
-**Short description:** BETA: Blocks unexpected popup tabs while keeping browsing data on your device.
+**Short description:** Stops websites from opening unwanted tabs or sending you somewhere else when you click. BETA.
 
 **Description:**
 
-PopIntent Beta is a local-first Microsoft Edge extension that protects the click you intended. It closes unexpected popup tabs, detects high-confidence transparent click overlays, and in Strict mode briefly blocks an unrelated third-party same-tab redirect after the intended page loads.
+Does every click open another tab, or does a play button send you somewhere else? PopIntent Beta protects the click you intended. It closes unexpected popup tabs, detects high-confidence transparent click overlays, and in Strict mode briefly blocks an unrelated third-party same-tab redirect after the intended page loads.
 
 Main features:
 
@@ -62,8 +75,15 @@ There is no account, server, telemetry, advertising, analytics SDK, remote code,
 
 - Extension logo: `store-assets/edge-logo-300x300.png`
 - Screenshot: `store-assets/settings-1280x800.png`
+- Screenshot: `store-assets/popup-protection-1280x800.png`
+- Screenshot: `store-assets/blocked-popup-1280x800.png`
 - Small promotional tile: `store-assets/small-promo-440x280.png`
 
 ## Certification notes
 
-PopIntent performs all detection locally and makes no application-initiated network requests. The packaged static redirector ruleset is empty. The extension's main behavior is exercised by opening normal links and pages that attempt script-created popup tabs. Strict mode is intentionally more aggressive; Default mode is designed to avoid breaking ambiguous sign-in, payment, and document flows.
+- Tester credentials, accounts, or additional information required: No.
+- Partner Center certification text: `No Certification Notes required`.
+
+Reviewer context for future submissions: PopIntent performs all detection locally and makes no application-initiated network requests. The packaged static redirector ruleset is empty. The extension's main behavior is exercised by opening normal links and pages that attempt script-created popup tabs. Strict mode is intentionally more aggressive; Default mode is designed to avoid breaking ambiguous sign-in, payment, and document flows.
+
+See [PUBLIC_BETA_LAUNCH.md](PUBLIC_BETA_LAUNCH.md) for the post-certification discovery plan.

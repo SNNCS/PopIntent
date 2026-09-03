@@ -2,7 +2,9 @@
 
 PopIntent is an experimental, local-first Chrome and Edge extension that closes unexpected popup tabs and preempts high-confidence transparent click overlays. It is deliberately narrower than an ad blocker: the goal is to preserve an intentional click while rejecting a different navigation that a page secretly attaches to it.
 
-This repository contains the **0.1.0 validation build**. An unlisted Chrome Web Store Beta or hidden Microsoft Edge Add-ons Beta may be used for controlled tester recruitment; it is not a public production release and does not claim to stop every redirect.
+This repository contains the **0.1.1 public Beta candidate**. As of 2026-09-03, PopIntent 0.1.0 is Live and Public in Microsoft Edge Add-ons; 0.1.1 is its privacy and onboarding update. The Chrome Web Store Beta remains unlisted. PopIntent is still experimental and does not claim to stop every redirect.
+
+[Install PopIntent Beta for Microsoft Edge](https://microsoftedge.microsoft.com/addons/detail/laodoihicammlibklbcfafhpkkgabdji) · [See how it works and run a safe test](https://snncs.github.io/PopIntent/)
 
 ## What it does
 
@@ -22,7 +24,7 @@ Strict mode also closes script-created popups whose destination cannot be proven
 - It does not stop arbitrary same-tab or server redirects without the Strict high-confidence chain described above, and the short guard intentionally expires after three seconds.
 - It cannot run on browser-internal pages or protect against another malicious extension or local malware.
 - It does not decide whether a visible link or button is honest.
-- The packaged redirector ruleset is intentionally empty in 0.1.0; domains will only be added after reproducible evidence and false-positive review.
+- The packaged redirector ruleset is intentionally empty in 0.1.1; domains will only be added after reproducible evidence and false-positive review.
 
 See [THREAT_MODEL.md](docs/THREAT_MODEL.md) for the complete boundary.
 
@@ -32,7 +34,16 @@ There is no server, account, telemetry, analytics SDK, remote code, or network u
 
 See [PRIVACY.md](PRIVACY.md) for the exact data inventory.
 
-## Install the validation build
+## Distribution status
+
+- **Project site:** [See how PopIntent works and run the harmless protection test](https://snncs.github.io/PopIntent/).
+- **Microsoft Edge Add-ons:** [PopIntent Beta](https://microsoftedge.microsoft.com/addons/detail/laodoihicammlibklbcfafhpkkgabdji) is Live and Public at version 0.1.0; 0.1.1 is the next release candidate.
+- **Chrome Web Store:** the Beta remains unlisted and is not affected by the Edge submission.
+- **Source build:** developers and controlled testers can continue to load the unpacked build.
+
+See [Microsoft Edge Add-ons listing](docs/MICROSOFT_EDGE_ADDONS_BETA.md), [Chrome Web Store Beta](docs/CHROME_WEB_STORE_BETA.md), and [public Beta launch plan](docs/PUBLIC_BETA_LAUNCH.md).
+
+## Install or build locally
 
 Requirements: Node.js 24+, pnpm 11.19+, and Chrome or Edge.
 
@@ -54,7 +65,7 @@ pnpm package
 pnpm package:beta
 ```
 
-`pnpm package` rebuilds, verifies the Manifest V3 output, rejects unexpected permissions/remote script patterns, and creates `release/popintent-0.1.0.zip`. `pnpm package:beta` creates the separately labeled `release/popintent-0.1.0-beta.zip` for an unlisted Chrome Web Store or hidden Microsoft Edge Add-ons testing program. Public store distribution remains blocked until the validation gate passes.
+`pnpm package` rebuilds, verifies the Manifest V3 output, rejects unexpected permissions/remote script patterns, and creates `release/popintent-0.1.1.zip`. `pnpm package:beta` creates `release/popintent-0.1.1-beta.zip`. Every ZIP uses stable ordering and timestamps and is accompanied by a `.sha256` checksum file.
 
 The automated suite uses Playwright's bundled Chromium because current branded Chrome and Edge builds do not support Playwright's command-line extension side-loading path. Stable Chrome and Edge are covered by the manual checklist in [SIDELOAD.md](docs/SIDELOAD.md).
 
@@ -78,10 +89,12 @@ The extension does not request `tabs`, `webRequest`, downloads, clipboard, notif
 - `tests/unit`: pure and storage-boundary tests.
 - `tests/e2e`: synthetic hostile pages and visible Chromium behavior.
 - `docs/VALIDATION.md`: the 21-day real-user decision gate.
+- `docs/PUBLIC_BETA_LAUNCH.md`: organic discovery, outreach, and measurement plan.
+- `site`: public explanation and harmless popup-protection tests deployed with GitHub Pages.
 
 ## Status and contribution rule
 
-0.1.0 is for controlled validation with people who recently encountered unwanted popup redirects. An explicitly labeled, unlisted Beta listing may be used to recruit testers, but public store distribution and donation prompts remain blocked until the gate in [VALIDATION.md](docs/VALIDATION.md) passes. Reports must include a reproducible public test page or a minimal local fixture; do not add an entire marketplace or publisher domain to a redirector list based on a single anecdote.
+0.1.1 remains a Beta intended to recruit people who recently encountered unwanted popup redirects. Public Edge distribution is a recruitment channel, not evidence that the validation gate passed. The gate in [VALIDATION.md](docs/VALIDATION.md) still controls graduation from Beta, broader effectiveness claims, donation prompts, and expansion of the redirector ruleset. Reports must include a reproducible public test page or a minimal local fixture; do not add an entire marketplace or publisher domain to a redirector list based on a single anecdote.
 
 ## License
 

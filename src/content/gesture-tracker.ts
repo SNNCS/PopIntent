@@ -1,6 +1,5 @@
 import { isHighConfidenceOverlay, type OverlayEvidence } from "../core/overlay-classifier";
-import { isIncognitoExtensionContext } from "../core/browser-context";
-import type { GestureRecord, RuntimeMessage } from "../shared/contracts";
+import type { GestureInput, RuntimeMessage } from "../shared/contracts";
 
 let globalMode: "default" | "paused" | "strict" = "default";
 
@@ -41,10 +40,9 @@ function handleKeyDown(event: KeyboardEvent): void {
   if (!event.isTrusted || (event.key !== "Enter" && event.key !== " ")) return;
   const actionable = findActionable(event.composedPath());
   if (actionable === null) return;
-  const gesture: GestureRecord = {
+  const gesture: GestureInput = {
     occurredAt: Date.now(),
     sourceUrl: location.href,
-    incognito: isIncognitoExtensionContext(chrome.extension),
     explicitDestination: explicitDestination(actionable),
     explicitNewTabIntent: event.ctrlKey || event.metaKey || event.shiftKey,
     semanticControl: true,
@@ -64,11 +62,10 @@ function createGesture(
   event: PointerEvent,
   actionable: HTMLElement | null,
   overlayHijack: boolean
-): GestureRecord {
-  const gesture: GestureRecord = {
+): GestureInput {
+  const gesture: GestureInput = {
     occurredAt: Date.now(),
     sourceUrl: location.href,
-    incognito: isIncognitoExtensionContext(chrome.extension),
     explicitDestination: explicitDestination(actionable),
     explicitNewTabIntent:
       event.button === 1 ||
@@ -92,7 +89,7 @@ function createGesture(
 
 function diagnosticTargetKind(
   element: HTMLElement | null
-): NonNullable<GestureRecord["diagnostic"]>["targetKind"] {
+): NonNullable<GestureInput["diagnostic"]>["targetKind"] {
   if (element === null) return "none";
   if (element instanceof HTMLAnchorElement || element instanceof HTMLAreaElement) return "anchor";
   if (element instanceof HTMLButtonElement) return "button";

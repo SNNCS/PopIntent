@@ -26,11 +26,11 @@ pnpm check
 pnpm package:diagnostic
 ```
 
-The artifact is written to `release/popintent-0.1.0-diagnostic.zip`. Its manifest name is **PopIntent Diagnostic**, and its unpacked build directory is `dist-diagnostic`.
+The artifact is written to `release/popintent-0.1.1-diagnostic.zip`. Its manifest name is **PopIntent Diagnostic**, and its unpacked build directory is `dist-diagnostic`.
 
 ## Capture a missed redirect
 
-1. Extract the diagnostic ZIP to a new directory. Do not overwrite the signed-off PopIntent 0.1.0 directory.
+1. Extract the diagnostic ZIP to a new directory. Do not overwrite the signed-off PopIntent store-build directory.
 2. Disable the normal PopIntent extension so the two builds do not process the same navigation.
 3. Open `chrome://extensions`, enable Developer mode, and load the extracted diagnostic directory.
 4. Open **PopIntent Diagnostic settings** and select **Clear diagnostic trace**.

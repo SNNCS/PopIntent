@@ -59,6 +59,11 @@ for (const file of files.filter((value) => value.endsWith(".js"))) {
   }
 }
 
+const contentScript = await readFile(path.join(distDir, "content", "gesture-tracker.js"), "utf8");
+if (/chrome\.extension|inIncognitoContext/.test(contentScript)) {
+  throw new Error("Content script must not infer or report private-browsing context.");
+}
+
 JSON.parse(await readFile(path.join(distDir, "rules", "known-redirectors.json"), "utf8"));
 console.log(
   `Verified ${files.length} packaged files for ${manifest.name} ${manifest.version_name ?? manifest.version}.`

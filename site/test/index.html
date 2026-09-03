@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Safe test — PopIntent</title>
+    <meta name="description" content="Use harmless simulations to check whether PopIntent is protecting Microsoft Edge.">
+    <link rel="icon" href="../assets/logo.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="../styles.css">
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="../"><img src="../assets/logo.svg" alt="" width="38" height="38"><span>PopIntent</span><span class="beta">Beta</span></a>
+      <nav aria-label="Test page navigation"><a href="../">About</a><a href="https://microsoftedge.microsoft.com/addons/detail/laodoihicammlibklbcfafhpkkgabdji">Install for Edge</a></nav>
+    </header>
+    <main class="test-main">
+      <p class="eyebrow"><span></span> Harmless browser simulation</p>
+      <h1>Is PopIntent working?</h1>
+      <p class="test-intro">These tests reproduce common popup patterns using only pages on this site. They contain no ads, trackers, downloads, or third-party destinations.</p>
+      <div class="safety-note"><b>Safe by design.</b><span>The “unexpected” page is a labeled simulation. PopIntent may briefly create and immediately close a tab—that is the behavior being tested.</span></div>
+
+      <div class="test-list">
+        <article class="test-card">
+          <header><div><span class="test-number">TEST 01 · CORE PROTECTION</span><h2>Mismatched popup</h2><p>The link says it will open an expected page, but the test script tries to open a different one.</p></div></header>
+          <a id="mismatch-test" class="test-action" href="expected.html" target="_blank" rel="opener">Run mismatch test</a>
+          <p id="mismatch-result" class="test-result" aria-live="polite">Expected with PopIntent: the extra tab closes and a notice appears.</p>
+        </article>
+
+        <article class="test-card">
+          <header><div><span class="test-number">TEST 02 · COMPATIBILITY</span><h2>Intentional new tab</h2><p>A normal link should remain open. Close the expected page afterward to return here.</p></div></header>
+          <a id="intentional-test" class="test-action" href="expected.html" target="_blank" rel="opener">Open expected page</a>
+          <p id="intentional-result" class="test-result" aria-live="polite">Expected: a tab titled “Expected test page” stays open.</p>
+        </article>
+
+        <article class="test-card">
+          <header><div><span class="test-number">TEST 03 · TRANSPARENT LAYER</span><h2>Click-overlay simulation</h2><p>Arm a temporary invisible layer, then click the large test control that appears. PopIntent should prevent the hidden link.</p></div></header>
+          <button id="arm-overlay" type="button">Arm overlay test</button>
+          <p id="overlay-result" class="test-result" aria-live="polite">The overlay disappears automatically after eight seconds.</p>
+        </article>
+      </div>
+
+      <div class="test-footer">
+        <p>If a result differs, confirm that PopIntent is enabled and set to <b>Default protection</b>. Still seeing a problem? <a href="https://github.com/SNNCS/PopIntent/issues/new?template=redirect-report.yml">Send a reproducible report</a> without private URLs or personal screenshots.</p>
+      </div>
+    </main>
+    <script src="test.js"></script>
+  </body>
+</html>

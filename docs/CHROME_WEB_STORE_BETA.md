@@ -1,18 +1,18 @@
 # Chrome Web Store unlisted Beta listing
 
-This document is the source of truth for the PopIntent Beta listing. The Beta must remain **Unlisted** and must not be changed to Public before the validation gate passes.
+This document is the source of truth for the Chrome Web Store PopIntent Beta listing. As of 2026-09-02 it remains **Unlisted**. The Microsoft Edge Public visibility submission does not change Chrome distribution; changing Chrome visibility requires a separate explicit release decision and submission.
 
 ## Product details
 
 **Name:** PopIntent Beta
 
-**Summary:** BETA: Blocks unexpected popup tabs while keeping browsing data on your device.
+**Summary:** Stops websites from opening unwanted tabs or sending you somewhere else when you click. BETA.
 
 **Detailed description:**
 
 THIS EXTENSION IS FOR BETA TESTING.
 
-PopIntent Beta is a local-first Chrome extension that protects the click you intended. It closes unexpected popup tabs, detects high-confidence transparent click overlays, and in Strict mode briefly blocks an unrelated third-party same-tab redirect after the intended page loads.
+Does every click open another tab, or does a play button send you somewhere else? PopIntent Beta is a local-first Chrome extension that protects the click you intended. It closes unexpected popup tabs, detects high-confidence transparent click overlays, and in Strict mode briefly blocks an unrelated third-party same-tab redirect after the intended page loads.
 
 Main features:
 
@@ -26,9 +26,9 @@ PopIntent is not a general ad blocker and does not promise to stop every redirec
 
 There is no account, server, telemetry, advertising, analytics SDK, remote code, or browsing-data upload. Processing and short-lived correlation data remain on the user's device. See the privacy policy for the complete data inventory and retention periods.
 
-**Website:** https://github.com/SNNCS/PopIntent
+**Website:** https://snncs.github.io/PopIntent/
 
-**Support:** https://github.com/SNNCS/PopIntent/issues
+**Support:** https://github.com/SNNCS/PopIntent/issues/new?template=redirect-report.yml
 
 **Privacy policy:** https://github.com/SNNCS/PopIntent/blob/main/PRIVACY.md
 
@@ -52,6 +52,8 @@ There is no account, server, telemetry, advertising, analytics SDK, remote code,
 
 - Store icon: `extension/icons/icon-128.png`
 - Screenshot: `store-assets/settings-1280x800.png`
+- Screenshot: `store-assets/popup-protection-1280x800.png`
+- Screenshot: `store-assets/blocked-popup-1280x800.png`
 - Small promo tile: `store-assets/small-promo-440x280.png`
 
 ## Distribution

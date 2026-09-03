@@ -1,10 +1,12 @@
 # 21-day validation gate
 
-PopIntent 0.1.0 is a sideload-only experiment. Do not publish it in the Chrome Web Store or Microsoft Edge Add-ons, add a donation prompt, or grow a redirector domain list until this gate passes.
+PopIntent is an experimental public Beta. As of 2026-09-03, Microsoft Edge Add-ons serves 0.1.0 as Live and Public; 0.1.1 is the next candidate. The Chrome Web Store Beta remains unlisted. Public distribution is intended to recruit a representative cohort and does not mean this gate has passed.
+
+Do not remove the Beta label, make broad effectiveness claims, add a donation prompt, or grow a redirector domain list until this gate passes.
 
 ## Recruit
 
-- 10–15 participants who personally experienced an unwanted popup/redirect within the previous 30 days.
+- Recruit 10–15 consenting participants who personally experienced an unwanted popup/redirect within the previous 30 days; ordinary public installs do not count unless the user opts into the validation process.
 - Include both Chrome and Edge, with at least three active participants on each browser.
 - Do not recruit only developers; include people who use free video, article, download, or streaming pages in ordinary browsing.
 - Explain that this is experimental protection, not a general ad blocker or security guarantee.
@@ -12,11 +14,18 @@ PopIntent 0.1.0 is a sideload-only experiment. Do not publish it in the Chrome W
 ## Run
 
 1. Record browser/version and the participant's recent problem scenario without collecting browsing history.
-2. Sideload the same signed-off ZIP and keep Default mode for the first week.
+2. Edge participants should install the current signed-off package from Microsoft Edge Add-ons. Chrome participants may use the unlisted Beta or the verified sideload package. Record the exact extension version and artifact SHA-256 at enrollment. Keep Default mode for the first week.
 3. Ask participants to use **Incorrect block** for false positives, **Report a missed redirect** for misses, and **Open anyway** when they deliberately override a block.
 4. Switch to global Strict mode only during targeted browsing sessions where Default continues to miss unwanted popups; return to Default when checking ordinary workflows.
 5. At days 7, 14, and 21, have each participant export the aggregate JSON and answer three short questions: Did it stop a real problem? Did it break a task? Would you keep it installed?
 6. Collect reproduction steps separately only with the participant's consent. Never request private URLs, account pages, or screenshots containing personal data.
+
+## Version continuity
+
+- Record the installed extension version at enrollment and at each day 7, 14, and 21 checkpoint. Keep aggregate exports grouped by version.
+- Existing 0.1.0 observations may continue into 0.1.1 because 0.1.1 changes private-context persistence, onboarding links, and release tooling without changing the navigation classifiers. Report the version split in the final decision record.
+- A release that changes a classifier, protection-mode behavior, DNR rule logic, event meaning, or aggregate-counter definition starts a new 21-day window for each updated participant. Do not merge its effectiveness or false-positive counts into an earlier behavioral version.
+- A participant who skips an update may remain in the cohort, but their results must stay assigned to the version they actually used.
 
 ## Pass criteria
 
@@ -40,4 +49,4 @@ If effectiveness is below 80%, do not compensate by leaving Strict mode enabled 
 
 ## Decision record
 
-At day 21, create a short Markdown report containing cohort size, browser split, aggregate counts, pass/fail for each criterion, top three reproduced misses, top three false positives, and one decision: stop, run a revised validation build, or prepare store submission. Do not include raw browsing histories or private URLs.
+At day 21, create a short Markdown report containing cohort size, browser split, version split, artifact checksums, aggregate counts by behavioral version, pass/fail for each criterion, top three reproduced misses, top three false positives, and one decision: stop, run a revised Beta, or graduate the public Beta toward a stable release. Do not include raw browsing histories or private URLs.

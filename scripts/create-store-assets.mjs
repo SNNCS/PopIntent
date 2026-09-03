@@ -44,6 +44,34 @@ try {
   });
   await screenshot.screenshot({ path: path.join(storeDir, "settings-1280x800.png") });
   await screenshot.close();
+
+  const popup = await browser.newPage({ viewport: { width: 1280, height: 800 } });
+  await popup.goto(pathToFileURL(path.join(projectRoot, "extension", "ui", "popup.html")).href);
+  await popup.addStyleTag({
+    content: `
+      html { min-height: 100%; background: linear-gradient(135deg, #edf3ff, #f8fafc 48%, #dce8ff); }
+      body.popup { margin: 84px auto 0; border: 1px solid #b8c4d8; border-radius: 14px; background: #f8fafc;
+        box-shadow: 0 28px 80px #18376b33; }
+      body.popup::before { content: "Keep the click you intended."; position: fixed; left: 80px; top: 300px;
+        width: 380px; color: #102a73; font: 750 44px/1.05 system-ui, sans-serif; letter-spacing: -2px; }
+      body.popup::after { content: "Local-first popup protection for Microsoft Edge"; position: fixed;
+        left: 82px; top: 410px; width: 330px; color: #475467; font: 17px/1.5 system-ui, sans-serif; }
+    `
+  });
+  await popup.evaluate(() => {
+    document.querySelector("#domain").textContent = "video.example";
+    document.querySelector("#global-mode").value = "default";
+    document.querySelector("#recent").textContent = "popup.example · target_mismatch";
+    document.querySelector("#open-once").hidden = false;
+    document.querySelector("#mark-incorrect").hidden = false;
+  });
+  await popup.screenshot({ path: path.join(storeDir, "popup-protection-1280x800.png") });
+  await popup.close();
+
+  const blocked = await browser.newPage({ viewport: { width: 1280, height: 800 } });
+  await blocked.setContent(blockedPopupMarkup());
+  await blocked.screenshot({ path: path.join(storeDir, "blocked-popup-1280x800.png") });
+  await blocked.close();
 } finally {
   await browser.close();
 }
@@ -66,4 +94,20 @@ function promoMarkup() {
       <div style="width:128px;height:128px;flex:none">${iconMarkup(128).match(/<svg[\s\S]*<\/svg>/)[0]}</div>
       <div><div style="font-size:32px;font-weight:750;letter-spacing:-1px">PopIntent</div><div style="display:inline-block;margin:8px 0 14px;padding:4px 9px;border:1px solid #b2ccff;border-radius:999px;font-size:13px;font-weight:700">BETA</div><div style="max-width:200px;font-size:18px;line-height:1.35;color:#eaf1ff">Keep the click you intended.</div></div>
     </div></body></html>`;
+}
+
+function blockedPopupMarkup() {
+  return `<!doctype html><html><body style="margin:0;width:1280px;height:800px;overflow:hidden;font-family:Arial,sans-serif;background:#0c1220;color:white">
+    <header style="height:58px;display:flex;align-items:center;padding:0 28px;border-bottom:1px solid #2d3748;background:#121a2a">
+      <strong style="font-size:18px">Example video page</strong><span style="margin-left:auto;color:#98a2b3;font-size:13px">Harmless demonstration</span>
+    </header>
+    <main style="position:relative;height:742px;background:radial-gradient(circle at 50% 35%,#25334c,#0c1220 65%);display:grid;place-items:center">
+      <div style="text-align:center;color:#d0d5dd"><div style="width:96px;height:96px;margin:auto;border:2px solid #667085;border-radius:50%;display:grid;place-items:center;font-size:38px">▶</div><p style="font-size:18px">The page tried to open a different destination.</p></div>
+      <section style="position:absolute;right:28px;bottom:28px;width:390px;padding:18px;border:1px solid #475467;border-radius:12px;background:#17202a;box-shadow:0 14px 45px #0009">
+        <div style="display:flex;align-items:center;gap:10px"><span style="display:grid;width:34px;height:34px;place-items:center;border-radius:9px;background:#155eef;font-weight:800">P</span><strong style="font-size:16px">Unexpected tab closed</strong></div>
+        <p style="margin:14px 0;color:#d0d5dd;line-height:1.45">PopIntent closed a destination that did not match the link you selected.</p>
+        <div style="display:flex;gap:8px"><span style="padding:8px 11px;border-radius:7px;background:white;color:#17202a;font-size:12px;font-weight:700">Open anyway</span><span style="padding:8px 11px;border:1px solid #667085;border-radius:7px;font-size:12px;font-weight:700">Incorrect block</span></div>
+      </section>
+    </main>
+  </body></html>`;
 }

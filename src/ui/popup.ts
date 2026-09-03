@@ -10,6 +10,7 @@ const options = document.querySelector<HTMLButtonElement>("#open-options")!;
 const feedback = document.querySelector<HTMLElement>("#feedback")!;
 
 let sourceUrl = "";
+let activeTabId: number | null = null;
 let state: UiState | null = null;
 
 void refresh();
@@ -33,7 +34,7 @@ markIncorrect.addEventListener("click", async () => {
 });
 
 reportMissed.addEventListener("click", async () => {
-  await send({ type: "report_missed" });
+  await send({ type: "report_missed", tabId: activeTabId });
   showFeedback("Missed redirect recorded locally.");
 });
 
@@ -41,6 +42,7 @@ options.addEventListener("click", () => void chrome.runtime.openOptionsPage());
 
 async function refresh(): Promise<void> {
   const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+  activeTabId = tab?.id ?? null;
   sourceUrl = tab?.url ?? "";
   state = (await send({ type: "get_ui_state", sourceUrl })) as UiState;
   domain.textContent = state.domain ?? "Unsupported page";

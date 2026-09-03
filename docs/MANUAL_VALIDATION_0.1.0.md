@@ -6,7 +6,7 @@ Date: 2026-08-26 (Asia/Kuala_Lumpur)
 
 Pass. The signed-off PopIntent 0.1.0 candidate passed the manual compatibility checklist in current official 64-bit builds of Google Chrome and Microsoft Edge.
 
-This result authorizes the small 3–5 person pre-trial described in the project handoff. It does not satisfy the separate 21-day validation gate and does not authorize extension-store publication.
+This result originally authorized the small 3–5 person pre-trial described in the project handoff. It does not satisfy the separate 21-day validation gate. On 2026-09-02, the publisher separately chose to submit the existing 0.1.0 Microsoft Edge listing for Public visibility so a representative cohort can be recruited; that decision does not change this test result or imply that the gate passed.
 
 ## Candidate artifact
 
@@ -35,8 +35,7 @@ Both browsers reported that they were up to date when tested.
 | `/target-mismatch` closes the unexpected tab and shows **Open anyway** | Pass | Pass |
 | `/overlay` prevents the ad tab and shows a notice | Pass | Pass |
 | `/iframe-overlay` prevents the ad tab and shows a notice in the top page | Pass | Pass |
-| Global off allows `/target-mismatch` | Pass | Pass |
-| Per-site Paused allows `/target-mismatch` | Pass | Pass |
+| Global Paused mode allows `/target-mismatch` | Pass | Pass |
 | Settings shows domain-only events and can mark an event incorrect | Pass | Pass |
 | Settings exports aggregate JSON | Pass | Pass |
 | Settings clears history | Pass | Pass |
@@ -48,12 +47,12 @@ Both browsers reported that they were up to date when tested.
 Assisted testing directly observed the following outcomes in the installed Chrome build:
 
 - `/intentional` opened only the expected `/legitimate` destination.
-- `/target-mismatch` closed the unexpected `/ad` tab and displayed a notice with **Open anyway**, **Pause this site**, and **Incorrect block**.
+- `/target-mismatch` closed the unexpected `/ad` tab and displayed a notice with **Open anyway** and **Incorrect block**.
 - `/overlay` and `/iframe-overlay` opened no ad tab and displayed the transparent-layer notice.
-- Switching `127.0.0.1` to Paused allowed the mismatched `/ad` destination as expected.
+- Switching the global mode to Paused allowed the mismatched `/ad` destination as expected.
 
 The user subsequently restored the intended protection state and confirmed that all remaining Chrome checklist items passed.
 
 ## Follow-up
 
-Proceed with the small 3–5 person pre-trial. If it exposes no blocking issue, recruit the 10–15 participant cohort and run the 21-day gate in `docs/VALIDATION.md`. Do not publish to extension stores, add donation prompts, enable global Strict mode, or expand real redirector domains before that gate passes.
+While the Public update is in review, use the direct Microsoft Edge listing and the unlisted Chrome Beta to recruit the 10–15 participant cohort. After the Edge update becomes Live / Public, use store discovery as an additional recruitment path and run the 21-day gate in `docs/VALIDATION.md`. Keep Default as the normal mode and use Strict only for targeted sessions. Do not remove the Beta label, add donation prompts, make broad effectiveness claims, or expand real redirector domains before the gate passes.

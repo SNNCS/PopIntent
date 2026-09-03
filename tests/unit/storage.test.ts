@@ -100,6 +100,7 @@ describe("local storage mutations", () => {
   });
 
   it("counts an incorrect block only once even if it is marked repeatedly", async () => {
+    vi.spyOn(Date, "now").mockReturnValue(Date.UTC(2026, 7, 25, 12, 1));
     await appendEvent(event(1));
 
     await Promise.all([

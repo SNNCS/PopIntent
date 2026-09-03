@@ -20,6 +20,7 @@ import {
 } from "./same-tab-guard-controller";
 import type { DiagnosticEvent } from "../core/diagnostic-trace";
 import { type BlockEvent } from "../core/event-history";
+import { allowsPersistentData, stampBrowserTabContext } from "../core/browser-context";
 import { isKnownRedirector } from "../core/known-redirectors";
 import {
   GESTURE_TTL_MS,
@@ -336,7 +337,7 @@ async function handleCreatedNavigation(details: CreatedNavigationDetails): Promi
   const gesture = await getGesture(details.sourceTabId, details.sourceFrameId);
   const sourceUrl = gesture?.sourceUrl ?? (await safeTabUrl(details.sourceTabId)) ?? "";
   const sourceTab = await safeGetTab(details.sourceTabId);
-  const incognito = gesture?.incognito ?? sourceTab?.incognito ?? false;
+  const incognito = gesture?.incognito ?? !allowsPersistentData(sourceTab ?? undefined);
   const siteState = await diagnosticSiteState();
   const siteMode = siteState.effectiveSiteMode;
 
@@ -644,48 +645,49 @@ async function handleMessage(message: RuntimeMessage, sender: chrome.runtime.Mes
     case "record_gesture": {
       if (sender.tab?.id === undefined) return { ok: false };
       const frameId = sender.frameId ?? 0;
+      const gesture: GestureRecord = stampBrowserTabContext(message.gesture, sender.tab);
       const globalState = await getGlobalState();
       await dispatchSameTabGuard(sender.tab.id, {
         type: "gesture",
-        occurredAt: message.gesture.occurredAt,
-        sourceUrl: message.gesture.sourceUrl,
-        targetUrl: message.gesture.explicitDestination,
-        explicitNewTabIntent: message.gesture.explicitNewTabIntent,
-        semanticControl: message.gesture.semanticControl,
+        occurredAt: gesture.occurredAt,
+        sourceUrl: gesture.sourceUrl,
+        targetUrl: gesture.explicitDestination,
+        explicitNewTabIntent: gesture.explicitNewTabIntent,
+        semanticControl: gesture.semanticControl,
         topFrame: frameId === 0,
         mode: globalState.mode
       });
       await chrome.storage.session.set({
-        [gestureKey(sender.tab.id, frameId)]: message.gesture
+        [gestureKey(sender.tab.id, frameId)]: gesture
       });
       DIAGNOSTIC: if (__POPINTENT_DIAGNOSTIC__) {
-        if (!message.gesture.incognito) await watchDiagnosticTab(sender.tab.id);
+        if (!gesture.incognito) await watchDiagnosticTab(sender.tab.id);
         const state = await diagnosticSiteState();
         await recordDiagnostic(
           {
-            occurredAt: message.gesture.occurredAt,
+            occurredAt: gesture.occurredAt,
             kind: "gesture",
             tabId: sender.tab.id,
             frameId,
-            sourceDomain: diagnosticDomain(message.gesture.sourceUrl),
-            targetDomain: diagnosticDomain(message.gesture.explicitDestination ?? undefined),
-            inputType: message.gesture.diagnostic?.inputType,
-            targetKind: message.gesture.diagnostic?.targetKind,
-            topFrame: message.gesture.diagnostic?.topFrame,
-            pointerButton: message.gesture.diagnostic?.pointerButton,
-            explicitDestination: message.gesture.explicitDestination !== null,
-            explicitNewTabIntent: message.gesture.explicitNewTabIntent,
-            semanticControl: message.gesture.semanticControl,
-            overlayHijack: message.gesture.overlayHijack,
+            sourceDomain: diagnosticDomain(gesture.sourceUrl),
+            targetDomain: diagnosticDomain(gesture.explicitDestination ?? undefined),
+            inputType: gesture.diagnostic?.inputType,
+            targetKind: gesture.diagnostic?.targetKind,
+            topFrame: gesture.diagnostic?.topFrame,
+            pointerButton: gesture.diagnostic?.pointerButton,
+            explicitDestination: gesture.explicitDestination !== null,
+            explicitNewTabIntent: gesture.explicitNewTabIntent,
+            semanticControl: gesture.semanticControl,
+            overlayHijack: gesture.overlayHijack,
             ...state
           },
-          message.gesture.incognito
+          gesture.incognito
         );
       }
       return { ok: true };
     }
     case "overlay_prevented": {
-      const incognito = sender.tab?.incognito ?? false;
+      const incognito = !allowsPersistentData(sender.tab);
       const event = createBlockEvent(
         message.sourceUrl,
         message.targetUrl ?? "",
@@ -753,7 +755,10 @@ async function handleMessage(message: RuntimeMessage, sender: chrome.runtime.Mes
       await markEvent(message.eventId, message.verdict);
       return { ok: true };
     case "report_missed":
-      if (!(sender.tab?.incognito ?? false)) await incrementCounter("missedRedirects");
+      if (message.tabId !== null) {
+        const tab = await safeGetTab(message.tabId);
+        if (allowsPersistentData(tab ?? undefined)) await incrementCounter("missedRedirects");
+      }
       return { ok: true };
     case "clear_history":
       await clearHistory();

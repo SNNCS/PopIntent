@@ -6,15 +6,18 @@ export interface Settings {
   mode: SiteMode;
 }
 
-export interface GestureRecord extends GestureSnapshot {
+export interface GestureInput extends GestureSnapshot {
   sourceUrl: string;
-  incognito: boolean;
   diagnostic?: {
     inputType: "keyboard" | "pointer";
     targetKind: "anchor" | "button" | "input" | "role_button" | "role_link" | "other" | "none";
     topFrame: boolean;
     pointerButton?: number;
   };
+}
+
+export interface GestureRecord extends GestureInput {
+  incognito: boolean;
 }
 
 export interface UndoRecord {
@@ -40,7 +43,7 @@ export interface OptionsState {
 }
 
 export type RuntimeMessage =
-  | { type: "record_gesture"; gesture: GestureRecord }
+  | { type: "record_gesture"; gesture: GestureInput }
   | { type: "overlay_prevented"; sourceUrl: string; targetUrl: string | null }
   | { type: "get_global_state" }
   | { type: "get_ui_state"; sourceUrl: string }
@@ -48,7 +51,7 @@ export type RuntimeMessage =
   | { type: "set_global_mode"; mode: SiteMode }
   | { type: "open_once"; eventId: string }
   | { type: "mark_event"; eventId: string; verdict: "correct" | "false_positive" }
-  | { type: "report_missed" }
+  | { type: "report_missed"; tabId: number | null }
   | { type: "clear_history" }
   | { type: "export_summary"; browser: string }
   | { type: "clear_diagnostic_trace" }

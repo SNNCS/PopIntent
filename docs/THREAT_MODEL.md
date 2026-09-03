@@ -42,7 +42,7 @@ PopIntent is not a malware scanner, content blocker, parental-control tool, or s
 - Protection can be paused everywhere immediately.
 - A safely parseable HTTP(S) target can be reopened once for 60 seconds.
 - The user can mark a block incorrect, and only aggregate counts are exported.
-- Packaged domain rules must be static, reviewable, reproducible, and narrowly scoped. The 0.1.0 list is empty.
+- Packaged domain rules must be static, reviewable, reproducible, and narrowly scoped. The 0.1.1 list is empty.
 
 ## Data and supply-chain controls
 
@@ -54,4 +54,4 @@ PopIntent is not a malware scanner, content blocker, parental-control tool, or s
 
 ## Known residual risks
 
-A page can avoid the current detector by navigating the same tab without a preceding high-confidence abuse signal, delaying beyond the short guard window, presenting a visibly painted overlay, or making the unexpected target resemble the declared target. A legitimate authentication or payment flow can still resemble the guarded sequence, so a blocked same-tab destination remains recoverable with **Open anyway** and stronger global Strict blocking remains opt-in. The validation gate exists to quantify those misses and breakages before public distribution.
+A page can avoid the current detector by navigating the same tab without a preceding high-confidence abuse signal, delaying beyond the short guard window, presenting a visibly painted overlay, or making the unexpected target resemble the declared target. A legitimate authentication or payment flow can still resemble the guarded sequence, so a blocked same-tab destination remains recoverable with **Open anyway** and stronger global Strict blocking remains opt-in. The validation gate exists to quantify those misses and breakages during the public Beta before the project drops the Beta label or broadens its protections.

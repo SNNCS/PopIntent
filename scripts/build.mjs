@@ -30,7 +30,7 @@ if (diagnosticBuild) {
   const manifest = JSON.parse(await readFile(manifestPath, "utf8"));
   manifest.name = "PopIntent Beta";
   manifest.version_name = `${manifest.version}-beta`;
-  manifest.description = "BETA: Blocks unexpected popup tabs while keeping browsing data on your device.";
+  manifest.description = `BETA: ${manifest.description}`;
   manifest.action.default_title = "PopIntent Beta";
   await writeFile(manifestPath, `${JSON.stringify(manifest, null, 2)}\n`);
 }
