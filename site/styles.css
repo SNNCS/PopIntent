@@ -148,3 +148,20 @@ footer div { display: flex; justify-content: flex-end; gap: 18px; }
   .test-main { padding-top: 48px; }
   .test-card header { display: block; }
 }
+
+.guide-main { width: min(820px, calc(100% - 40px)); margin: 0 auto; padding: 74px 0 110px; }
+.guide-main h1 { font-size: clamp(45px, 7.5vw, 76px); }
+.guide-intro { margin: 26px 0 44px; color: var(--muted); font-size: 20px; }
+.guide-summary { margin: 0 0 50px; padding: 24px 28px; border-left: 4px solid var(--blue); border-radius: 0 12px 12px 0; background: var(--mist); }
+.guide-summary b { display: block; margin-bottom: 6px; color: var(--blue-dark); }
+.guide-main article { font-size: 17px; line-height: 1.75; }
+.guide-main article h2 { margin: 64px 0 15px; font-size: 32px; line-height: 1.15; letter-spacing: -.045em; }
+.guide-main article h3 { margin: 34px 0 8px; font-size: 20px; letter-spacing: -.025em; }
+.guide-main article p, .guide-main article li { color: #424b5a; }
+.guide-main article ol, .guide-main article ul { padding-left: 22px; }
+.guide-main article li { margin-bottom: 10px; }
+.guide-main article a { color: var(--blue); font-weight: 650; }
+.guide-callout { margin: 46px 0; padding: 30px; border: 1px solid #b9c8e5; border-radius: 15px; background: white; }
+.guide-callout h2 { margin-top: 0 !important; }
+.guide-callout .button { color: white; }
+.guide-meta { margin: 18px 0 0; color: #778090; font: 12px ui-monospace, monospace; }

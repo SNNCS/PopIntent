@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Why does Edge open a new tab every time I click?</title>
+    <meta name="description" content="A practical checklist for stopping random tabs, popup ads, and forced redirects in Microsoft Edge—and knowing which protection applies.">
+    <link rel="canonical" href="https://snncs.github.io/PopIntent/guides/edge-opens-random-tabs/">
+    <meta property="og:title" content="Why does Edge open a new tab every time I click?">
+    <meta property="og:description" content="Diagnose random tabs, popup ads, site notifications, suspicious extensions, and click-hijacked redirects in Edge.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://snncs.github.io/PopIntent/guides/edge-opens-random-tabs/">
+    <meta property="og:image" content="https://snncs.github.io/PopIntent/assets/og.png">
+    <link rel="icon" href="../../assets/logo.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="../../styles.css">
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"HowTo","name":"Stop Microsoft Edge from opening random tabs when you click","description":"Diagnose popup settings, notifications, extensions, malicious software, and click-hijacked website behavior.","step":[{"@type":"HowToStep","name":"Confirm the symptom","text":"Check whether a new tab opens only after a click, the current tab redirects, or tabs appear without using a website."},{"@type":"HowToStep","name":"Block pop-ups and redirects","text":"In Edge, open Settings, then Cookies and site permissions, then Pop-ups and redirects, and keep Block enabled."},{"@type":"HowToStep","name":"Review notifications and extensions","text":"Remove notification permission from sites you do not trust and disable extensions you do not recognize."},{"@type":"HowToStep","name":"Keep SmartScreen enabled","text":"Check Microsoft Defender SmartScreen under Privacy, search, and services, then Security."},{"@type":"HowToStep","name":"Test click-hijack protection","text":"If the issue occurs only when clicking on particular websites, use the harmless PopIntent test to identify a mismatched popup pattern."}]}</script>
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="../../"><img src="../../assets/logo.svg" alt="" width="38" height="38"><span>PopIntent</span><span class="beta">Beta</span></a>
+      <nav aria-label="Guide navigation"><a href="../../">About</a><a href="../../test/">Safe test</a><a href="https://microsoftedge.microsoft.com/addons/detail/laodoihicammlibklbcfafhpkkgabdji">Install for Edge</a></nav>
+    </header>
+    <main class="guide-main">
+      <p class="eyebrow"><span></span> Microsoft Edge troubleshooting</p>
+      <h1>Why does Edge open a new tab every time I click?</h1>
+      <p class="guide-intro">The cause depends on one detail: whether tabs appear only after you click on a particular website, or appear even when you are doing nothing. Work through this checklist in order.</p>
+      <div class="guide-summary"><b>Short answer</b>Turn on Edge's built-in pop-up blocking, remove suspicious notification permissions and extensions, keep SmartScreen enabled, and scan the device if tabs appear by themselves. If a particular website attaches an unrelated popup to an ordinary click, a narrow click-intent tool such as PopIntent can cover that remaining pattern.</div>
+
+      <article>
+        <h2>1. Identify which kind of “random tab” you have</h2>
+        <ul>
+          <li><b>A new tab opens immediately after a click:</b> often a popup script or transparent click layer on that page.</li>
+          <li><b>The current tab changes destination:</b> a same-tab redirect, link shortener, or server redirect.</li>
+          <li><b>Tabs appear when you are not interacting with a page:</b> investigate notifications, unwanted extensions, or software on the device.</li>
+          <li><b>The visible link itself points somewhere unwanted:</b> the website is doing what the link declares; a popup mismatch detector cannot decide whether that visible destination is honest.</li>
+        </ul>
+
+        <h2>2. Confirm Edge's built-in pop-up setting</h2>
+        <ol>
+          <li>Open <b>Edge Settings</b>.</li>
+          <li>Choose <b>Cookies and site permissions</b>.</li>
+          <li>Open <b>Pop-ups and redirects</b>.</li>
+          <li>Keep <b>Block</b> turned on and remove unfamiliar sites from the allowed list.</li>
+        </ol>
+        <p>This is the correct first step. Microsoft notes that Edge's built-in blocker covers pop-up windows, but it does not block every advertising pattern or page redirect. See Microsoft's official <a href="https://support.microsoft.com/en-us/microsoft-edge/block-pop-ups-in-microsoft-edge-1d8ba4f8-f385-9a0b-e944-aa47339b6bb5">Edge pop-up guidance</a>.</p>
+
+        <h2>3. Remove unwanted notification permission</h2>
+        <p>Website notifications can look like browser-generated ads and may open a page when selected. In <b>Settings → Cookies and site permissions → Notifications</b>, remove or block sites you do not recognize. Do not click “Allow” on a site merely because it says permission is required to watch a video or prove you are human.</p>
+
+        <h2>4. Review extensions and scan if tabs open by themselves</h2>
+        <p>Open <b>Extensions → Manage extensions</b>. Disable unfamiliar items, then restart Edge and check again. If the behavior continues across unrelated sites or begins without a click, use Windows Security or another trusted security tool to scan the device. A page-level popup extension is not a substitute for removing unwanted software.</p>
+
+        <h2>5. Keep Microsoft Defender SmartScreen enabled</h2>
+        <p>SmartScreen checks suspicious pages and downloads against Microsoft's reputation systems. In Edge, find it under <b>Settings → Privacy, search, and services → Security</b>. It solves a different problem from popup blocking: reputation and phishing protection rather than comparing a click with the tab that appears. Read Microsoft's official explanation of <a href="https://support.microsoft.com/en-us/microsoft-edge/what-is-smartscreen-and-how-can-it-help-protect-me-1c9a874a-6826-be5e-45b1-67fa445a74c8">how SmartScreen helps</a>.</p>
+
+        <div class="guide-callout">
+          <h2>When PopIntent fits</h2>
+          <p>If built-in blocking is enabled but a particular website still opens a different tab when you click Play, Download, Read more, or another visible control, PopIntent tests whether the opened destination agrees with the link you selected. It runs locally and closes a high-confidence mismatch.</p>
+          <p>It is not a general ad blocker, malware scanner, or guarantee against every same-tab or server redirect.</p>
+          <div class="cta-row"><a class="button primary" href="../../test/">Run the harmless test</a><a class="button secondary" href="https://microsoftedge.microsoft.com/addons/detail/laodoihicammlibklbcfafhpkkgabdji">Install the Edge beta</a></div>
+        </div>
+
+        <h2>Still seeing it?</h2>
+        <p>Test in an InPrivate window with other extensions disabled, then note the exact trigger. If the behavior can be reproduced on a public page, <a href="https://github.com/SNNCS/PopIntent/issues/new?template=redirect-report.yml">send a structured report</a>. Never post private URLs, account pages, browsing history, or screenshots containing personal data.</p>
+      </article>
+      <p class="guide-meta">Updated 2026-09-03 · No analytics or affiliate links</p>
+    </main>
+    <footer><a class="brand" href="../../"><img src="../../assets/logo.svg" alt="" width="30" height="30"><span>PopIntent</span></a><p>Local-first popup protection for Chromium browsers.</p><div><a href="../../test/">Safe test</a><a href="https://github.com/SNNCS/PopIntent">Source</a><a href="https://github.com/SNNCS/PopIntent/blob/main/PRIVACY.md">Privacy</a></div></footer>
+  </body>
+</html>

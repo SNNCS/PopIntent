@@ -25,7 +25,16 @@ for (const file of htmlFiles) {
   }
 }
 
-for (const required of ["index.html", "test/index.html", "test/test.js", "assets/logo.svg", "assets/og.png"]) {
+for (const required of [
+  "index.html",
+  "test/index.html",
+  "test/test.js",
+  "guides/edge-opens-random-tabs/index.html",
+  "robots.txt",
+  "sitemap.xml",
+  "assets/logo.svg",
+  "assets/og.png"
+]) {
   await access(path.join(siteRoot, required));
 }
 
