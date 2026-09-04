@@ -38,6 +38,7 @@ for (const required of [
   "test/test.js",
   "guides/edge-opens-random-tabs/index.html",
   "guides/stop-redirects-in-edge/index.html",
+  "dbddff1968f647eb84acee9eaa958058.txt",
   "robots.txt",
   "sitemap.xml",
   "assets/logo.svg",
