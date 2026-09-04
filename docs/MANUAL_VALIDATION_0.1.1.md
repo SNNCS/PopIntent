@@ -4,9 +4,9 @@ Date: 2026-09-04 (Asia/Kuala_Lumpur)
 
 ## Status
 
-In progress. The exact Microsoft Edge submission artifact has passed the Default-mode public and local fixture checks listed below, plus the Paused-mode allowance check. Strict mode, settings, restart, and InPrivate checks remain pending.
+Superseded; do not submit. The exact Microsoft Edge submission artifact passed the Default and Paused checks below, but failed the Strict same-tab guard check in the installed Edge profile: after a high-confidence popup block and an explicit same-tab continuation, the delayed third-party redirect reached `http://localhost:4173/ad` in 10 of 10 runs.
 
-The extension is currently left in **Paused** mode after the Paused-mode allowance check. Restore **Default protection** before continuing.
+The failure was reduced to a rule-installation timing race and fixed in 0.1.2. Because the fix changes Strict-mode DNR behavior, validation restarts on the 0.1.2 artifact.
 
 ## Candidate artifact
 
@@ -36,7 +36,7 @@ The extension is currently left in **Paused** mode after the Paused-mode allowan
 | Local `/iframe-overlay` in Default | Pass | Coordinate click inside the iframe opened no ad tab and showed the notice in the top page. |
 | Local `/target-mismatch` in Paused | Pass | `/ad` remained open and no PopIntent notice appeared. |
 
-## Remaining checks
+## Checks not completed after supersession
 
 - Restore Default and confirm the popup shows the active HTTP(S) domain.
 - Switch to Strict and cover the guarded same-tab abuse, user-initiated external, first-party automatic, and no-prior-abuse paths.

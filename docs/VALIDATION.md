@@ -1,6 +1,6 @@
 # 21-day validation gate
 
-PopIntent is an experimental public Beta. As of 2026-09-03, Microsoft Edge Add-ons serves 0.1.0 as Live and Public; 0.1.1 is the next candidate. The Chrome Web Store Beta remains unlisted. Public distribution is intended to recruit a representative cohort and does not mean this gate has passed.
+PopIntent is an experimental public Beta. As of 2026-09-04, Microsoft Edge Add-ons serves 0.1.0 as Live and Public; 0.1.2 is the next candidate. The Chrome Web Store Beta remains unlisted. Public distribution is intended to recruit a representative cohort and does not mean this gate has passed.
 
 Do not remove the Beta label, make broad effectiveness claims, add a donation prompt, or grow a redirector domain list until this gate passes.
 
@@ -24,6 +24,7 @@ Do not remove the Beta label, make broad effectiveness claims, add a donation pr
 
 - Record the installed extension version at enrollment and at each day 7, 14, and 21 checkpoint. Keep aggregate exports grouped by version.
 - Existing 0.1.0 observations may continue into 0.1.1 because 0.1.1 changes private-context persistence, onboarding links, and release tooling without changing the navigation classifiers. Report the version split in the final decision record.
+- Version 0.1.2 changes Strict-mode DNR guard timing, so every participant updated to 0.1.2 starts a new 21-day behavioral window. Do not merge 0.1.2 effectiveness or false-positive counts with 0.1.0/0.1.1.
 - A release that changes a classifier, protection-mode behavior, DNR rule logic, event meaning, or aggregate-counter definition starts a new 21-day window for each updated participant. Do not merge its effectiveness or false-positive counts into an earlier behavioral version.
 - A participant who skips an update may remain in the cohort, but their results must stay assigned to the version they actually used.
 

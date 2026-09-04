@@ -4,7 +4,7 @@ For ordinary Microsoft Edge use, install [PopIntent Beta from Microsoft Edge Add
 
 Use the sideload steps below for development, reproducible debugging, or verification of an exact local artifact.
 
-Use the unpacked `dist` directory for development. If you received `popintent-0.1.1.zip`, extract it first and select the extracted directory that directly contains `manifest.json`.
+Use the unpacked `dist` directory for development. If you received `popintent-0.1.2.zip`, extract it first and select the extracted directory that directly contains `manifest.json`.
 
 ## Build
 

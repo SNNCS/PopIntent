@@ -246,6 +246,24 @@ test("blocks a delayed third-party same-tab redirect after high-confidence abuse
   await expect(page).toHaveURL("http://localhost:4173/ad");
 });
 
+test("arms the same-tab guard before a fast destination can redirect", async ({ context, extensionId }) => {
+  const controls = context.pages()[0] ?? (await context.newPage());
+  await controls.goto(`chrome-extension://${extensionId}/ui/options.html`);
+  await controls.evaluate(() => chrome.runtime.sendMessage({ type: "set_global_mode", mode: "strict" }));
+  await controls.close();
+
+  const page = await context.newPage();
+  await page.goto("/same-tab-guard-source");
+  await page.locator("#abuse").click();
+  await page.waitForTimeout(250);
+  expect(context.pages()).toHaveLength(1);
+
+  await page.locator("#continue-fast").click();
+  await page.waitForTimeout(500);
+  await expect(page).toHaveURL(/\/same-tab-guard-source$/);
+  await expect(page.locator("#popintent-notice-host")).toBeAttached();
+});
+
 test("allows the same delayed redirect when there is no prior abuse evidence", async ({ context, extensionId }) => {
   const controls = context.pages()[0] ?? (await context.newPage());
   await controls.goto(`chrome-extension://${extensionId}/ui/options.html`);

@@ -32,6 +32,7 @@ const pages = {
   "/same-tab-guard-source": `<!doctype html><html><body>
     <div id="abuse" tabindex="0">Dismiss advertisement</div>
     <a id="continue" href="/same-tab-guarded-landing">Read article</a>
+    <a id="continue-fast" href="/same-tab-guarded-fast-landing">Read fast article</a>
     <a id="continue-user" href="/same-tab-user-landing">Open interactive article</a>
     <a id="continue-first-party" href="/same-tab-first-party-landing">Open local article</a>
     <script>
@@ -45,6 +46,12 @@ const pages = {
     <h1>Legitimate destination</h1>
     <script>
       setTimeout(() => { location.href = 'http://localhost:4173/ad'; }, 500);
+    </script>
+  </body></html>`,
+  "/same-tab-guarded-fast-landing": `<!doctype html><html><body>
+    <h1>Fast legitimate destination</h1>
+    <script>
+      setTimeout(() => { location.href = 'http://localhost:4173/ad'; }, 0);
     </script>
   </body></html>`,
   "/same-tab-user-landing": `<!doctype html><html><body>

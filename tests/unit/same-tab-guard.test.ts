@@ -8,6 +8,25 @@ import {
 } from "../../src/core/same-tab-guard";
 
 describe("same-tab guard", () => {
+  it("pre-arms the source tab as soon as high-confidence abuse is blocked", () => {
+    const abused = advanceSameTabGuard(EMPTY_SAME_TAB_GUARD_STATE, {
+      type: "abuse_blocked",
+      occurredAt: 1_000,
+      sourceUrl: "https://source.example/watch"
+    });
+
+    expect(abused.state.recentAbuse).toEqual({
+      occurredAt: 1_000,
+      sourceOrigin: "https://source.example"
+    });
+    expect(abused.state.active).toMatchObject({
+      phase: "protecting",
+      sourceUrl: "https://source.example/watch",
+      initiatorDomain: "source.example"
+    });
+    expect(abused.effects).toEqual([{ type: "arm_rule", initiatorDomain: "source.example" }]);
+  });
+
   it("arms only after recent high-confidence abuse and an explicit Strict same-tab gesture", () => {
     const abused = advanceSameTabGuard(EMPTY_SAME_TAB_GUARD_STATE, {
       type: "abuse_blocked",
@@ -32,7 +51,10 @@ describe("same-tab guard", () => {
       expectedUrl: "https://article.example/story",
       initiatorDomain: "article.example"
     });
-    expect(armed.effects).toEqual([{ type: "arm_rule", initiatorDomain: "article.example" }]);
+    expect(armed.effects).toEqual([
+      { type: "remove_rule" },
+      { type: "arm_rule", initiatorDomain: "article.example" }
+    ]);
   });
 
   it.each([
@@ -57,7 +79,7 @@ describe("same-tab guard", () => {
     });
 
     expect(result.state.active).toBeNull();
-    expect(result.effects).toEqual([]);
+    expect(result.effects).toEqual([{ type: "remove_rule" }]);
   });
 
   it("does not carry abuse evidence to a different source origin", () => {

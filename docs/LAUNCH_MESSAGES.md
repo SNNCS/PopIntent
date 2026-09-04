@@ -26,7 +26,7 @@ I maintain the project and would value criticism of the privacy boundary or repr
 
 **[Reference the technical discussion.] I have an MV3 Beta that correlates a trusted gesture with the child navigation it creates.**
 
-PopIntent allows an intentional new-tab destination, closes a contradictory child destination, and uses a short tab-scoped DNR session rule only for its opt-in Strict same-tab guard. Version 0.1.1 also moves private-context classification entirely to browser-owned sender-tab metadata and fails closed when that context is unavailable.
+PopIntent allows an intentional new-tab destination, closes a contradictory child destination, and uses a short tab-scoped DNR session rule only for its opt-in Strict same-tab guard. Version 0.1.2 also moves private-context classification entirely to browser-owned sender-tab metadata, fails closed when that context is unavailable, and pre-arms the Strict guard after high-confidence popup abuse so a fast redirect cannot outrun rule installation.
 
 Source and synthetic test cases: https://github.com/SNNCS/PopIntent
 Harmless hosted test: https://snncs.github.io/PopIntent/test/

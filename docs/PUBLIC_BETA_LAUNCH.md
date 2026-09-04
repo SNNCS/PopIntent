@@ -8,7 +8,7 @@ Status as of 2026-09-03 (Asia/Kuala_Lumpur):
 
 - Microsoft Edge Add-ons listing: https://microsoftedge.microsoft.com/addons/detail/laodoihicammlibklbcfafhpkkgabdji
 - Live store version: 0.1.0
-- Repository candidate: 0.1.1
+- Repository candidate: 0.1.2
 - Live visibility: Public
 - Public visibility confirmed: 2026-09-03
 - Chrome Web Store visibility: Unlisted
@@ -22,8 +22,8 @@ Prepared launch surfaces:
 - IndexNow ownership proof and URL submission record: [INDEXNOW.md](INDEXNOW.md).
 - Structured feedback form: https://github.com/SNNCS/PopIntent/issues/new?template=redirect-report.yml
 - Store screenshots: Settings, active popup controls, and an unexpected-tab notice.
-- Reproducible 0.1.1 Beta artifact with a SHA-256 sidecar.
-- Microsoft accepted the 0.1.1 ZIP in the Partner Center draft; final store copy, screenshots, manual stable-browser sign-off, and certification submission remain pending.
+- Reproducible 0.1.2 Beta artifact with a SHA-256 sidecar.
+- Microsoft accepted the 0.1.1 ZIP in the Partner Center draft, but manual Edge validation found a Strict-mode timing bypass before certification. The 0.1.2 replacement package, final store copy, screenshots, manual stable-browser sign-off, and certification submission remain pending.
 
 ## Positioning
 

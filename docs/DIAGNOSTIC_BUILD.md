@@ -26,7 +26,7 @@ pnpm check
 pnpm package:diagnostic
 ```
 
-The artifact is written to `release/popintent-0.1.1-diagnostic.zip`. Its manifest name is **PopIntent Diagnostic**, and its unpacked build directory is `dist-diagnostic`.
+The artifact is written to `release/popintent-0.1.2-diagnostic.zip`. Its manifest name is **PopIntent Diagnostic**, and its unpacked build directory is `dist-diagnostic`.
 
 ## Capture a missed redirect
 

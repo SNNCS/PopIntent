@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "PopIntent",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Stops websites from opening unwanted tabs or sending you somewhere else when you click.",
   "homepage_url": "https://snncs.github.io/PopIntent/",
   "icons": {

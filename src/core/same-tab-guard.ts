@@ -60,13 +60,25 @@ export function advanceSameTabGuard(
   switch (event.type) {
     case "abuse_blocked": {
       const source = safeHttpUrl(event.sourceUrl);
+      const effects: SameTabGuardEffect[] = state.active === null ? [] : [{ type: "remove_rule" }];
+      if (source !== null) effects.push({ type: "arm_rule", initiatorDomain: source.hostname });
       return {
         state: {
           recentAbuse:
             source === null ? null : { occurredAt: event.occurredAt, sourceOrigin: source.origin },
-          active: null
+          active:
+            source === null
+              ? null
+              : {
+                  phase: "protecting",
+                  sourceUrl: event.sourceUrl,
+                  expectedUrl: event.sourceUrl,
+                  initiatorDomain: source.hostname,
+                  expiresAt: event.occurredAt + SAME_TAB_ABUSE_TTL_MS,
+                  pendingTargetUrl: null
+                }
         },
-        effects: state.active === null ? [] : [{ type: "remove_rule" }]
+        effects
       };
     }
     case "gesture": {

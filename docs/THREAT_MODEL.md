@@ -42,7 +42,7 @@ PopIntent is not a malware scanner, content blocker, parental-control tool, or s
 - Protection can be paused everywhere immediately.
 - A safely parseable HTTP(S) target can be reopened once for 60 seconds.
 - The user can mark a block incorrect, and only aggregate counts are exported.
-- Packaged domain rules must be static, reviewable, reproducible, and narrowly scoped. The 0.1.1 list is empty.
+- Packaged domain rules must be static, reviewable, reproducible, and narrowly scoped. The 0.1.2 list is empty.
 
 ## Data and supply-chain controls
 

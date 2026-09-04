@@ -2,7 +2,7 @@
 
 PopIntent is an experimental, local-first Chrome and Edge extension that closes unexpected popup tabs and preempts high-confidence transparent click overlays. It is deliberately narrower than an ad blocker: the goal is to preserve an intentional click while rejecting a different navigation that a page secretly attaches to it.
 
-This repository contains the **0.1.1 public Beta candidate**. As of 2026-09-03, PopIntent 0.1.0 is Live and Public in Microsoft Edge Add-ons; 0.1.1 is its privacy and onboarding update. The Chrome Web Store Beta remains unlisted. PopIntent is still experimental and does not claim to stop every redirect.
+This repository contains the **0.1.2 public Beta candidate**. As of 2026-09-04, PopIntent 0.1.0 is Live and Public in Microsoft Edge Add-ons; 0.1.2 supersedes the unsubmitted 0.1.1 draft with a Strict-mode timing fix. The Chrome Web Store Beta remains unlisted. PopIntent is still experimental and does not claim to stop every redirect.
 
 [Install PopIntent Beta for Microsoft Edge](https://microsoftedge.microsoft.com/addons/detail/laodoihicammlibklbcfafhpkkgabdji) · [See how it works and run a safe test](https://snncs.github.io/PopIntent/)
 
@@ -24,7 +24,7 @@ Strict mode also closes script-created popups whose destination cannot be proven
 - It does not stop arbitrary same-tab or server redirects without the Strict high-confidence chain described above, and the short guard intentionally expires after three seconds.
 - It cannot run on browser-internal pages or protect against another malicious extension or local malware.
 - It does not decide whether a visible link or button is honest.
-- The packaged redirector ruleset is intentionally empty in 0.1.1; domains will only be added after reproducible evidence and false-positive review.
+- The packaged redirector ruleset is intentionally empty in 0.1.2; domains will only be added after reproducible evidence and false-positive review.
 
 See [THREAT_MODEL.md](docs/THREAT_MODEL.md) for the complete boundary.
 
@@ -38,7 +38,7 @@ See [PRIVACY.md](PRIVACY.md) for the exact data inventory.
 
 - **Project site:** [See how PopIntent works and run the harmless protection test](https://snncs.github.io/PopIntent/).
 - **Problem-first guides:** [Fix random tabs in Edge](https://snncs.github.io/PopIntent/guides/edge-opens-random-tabs/) and [stop unwanted redirects in Edge](https://snncs.github.io/PopIntent/guides/stop-redirects-in-edge/).
-- **Microsoft Edge Add-ons:** [PopIntent Beta](https://microsoftedge.microsoft.com/addons/detail/laodoihicammlibklbcfafhpkkgabdji) is Live and Public at version 0.1.0; 0.1.1 is the next release candidate.
+- **Microsoft Edge Add-ons:** [PopIntent Beta](https://microsoftedge.microsoft.com/addons/detail/laodoihicammlibklbcfafhpkkgabdji) is Live and Public at version 0.1.0; 0.1.2 is the next release candidate.
 - **Chrome Web Store:** the Beta remains unlisted and is not affected by the Edge submission.
 - **Source build:** developers and controlled testers can continue to load the unpacked build.
 
@@ -66,7 +66,7 @@ pnpm package
 pnpm package:beta
 ```
 
-`pnpm package` rebuilds, verifies the Manifest V3 output, rejects unexpected permissions/remote script patterns, and creates `release/popintent-0.1.1.zip`. `pnpm package:beta` creates `release/popintent-0.1.1-beta.zip`. Every ZIP uses stable ordering and timestamps and is accompanied by a `.sha256` checksum file.
+`pnpm package` rebuilds, verifies the Manifest V3 output, rejects unexpected permissions/remote script patterns, and creates `release/popintent-0.1.2.zip`. `pnpm package:beta` creates `release/popintent-0.1.2-beta.zip`. Every ZIP uses stable ordering and timestamps and is accompanied by a `.sha256` checksum file.
 
 The automated suite uses Playwright's bundled Chromium because current branded Chrome and Edge builds do not support Playwright's command-line extension side-loading path. Stable Chrome and Edge are covered by the manual checklist in [SIDELOAD.md](docs/SIDELOAD.md).
 
@@ -95,7 +95,7 @@ The extension does not request `tabs`, `webRequest`, downloads, clipboard, notif
 
 ## Status and contribution rule
 
-0.1.1 remains a Beta intended to recruit people who recently encountered unwanted popup redirects. Public Edge distribution is a recruitment channel, not evidence that the validation gate passed. The gate in [VALIDATION.md](docs/VALIDATION.md) still controls graduation from Beta, broader effectiveness claims, donation prompts, and expansion of the redirector ruleset. Reports must include a reproducible public test page or a minimal local fixture; do not add an entire marketplace or publisher domain to a redirector list based on a single anecdote.
+0.1.2 remains a Beta intended to recruit people who recently encountered unwanted popup redirects. Public Edge distribution is a recruitment channel, not evidence that the validation gate passed. The gate in [VALIDATION.md](docs/VALIDATION.md) still controls graduation from Beta, broader effectiveness claims, donation prompts, and expansion of the redirector ruleset. Reports must include a reproducible public test page or a minimal local fixture; do not add an entire marketplace or publisher domain to a redirector list based on a single anecdote.
 
 ## License
 

@@ -4,15 +4,16 @@ This document is the source of truth for the PopIntent Beta listing in Microsoft
 
 ## Submission status
 
-Status as of 2026-09-03 (Asia/Kuala_Lumpur):
+Status as of 2026-09-04 (Asia/Kuala_Lumpur):
 
 - Listing: https://microsoftedge.microsoft.com/addons/detail/laodoihicammlibklbcfafhpkkgabdji
 - Store ID: `0RDCKG592QX9`
 - CRX ID: `laodoihicammlibklbcfafhpkkgabdji`
 - Product ID: `58582884-e4ff-411d-926b-2da31e5fc1b8`
 - Current live submission: version 0.1.0, **Live**, **Public**.
-- Next candidate: version 0.1.1 privacy, onboarding, and release-tooling update.
-- 0.1.1 Partner Center draft: package uploaded and verified on 2026-09-03; Public visibility and all 241 markets preserved; not yet submitted for certification.
+- Next candidate: version 0.1.2, which includes the 0.1.1 privacy/onboarding work plus a Strict-mode same-tab guard timing fix.
+- 0.1.1 Partner Center draft: package uploaded and verified on 2026-09-03, but superseded before certification after manual Edge validation reproduced a same-tab redirect timing bypass.
+- 0.1.2 Partner Center draft: not yet uploaded or submitted for certification.
 
 Partner Center confirmed Public visibility on 2026-09-03. The visibility submission did not change the 0.1.0 package, permissions, privacy disclosures, markets, pricing, or in-product purchase status.
 
@@ -83,7 +84,7 @@ There is no account, server, telemetry, advertising, analytics SDK, remote code,
 ## Certification notes
 
 - Tester credentials, accounts, or additional information required: No.
-- Partner Center now requires certification notes for every submission. Use the reviewer context below verbatim for 0.1.1.
+- Partner Center now requires certification notes for every submission. Use the reviewer context below verbatim for 0.1.2.
 
 **Partner Center certification text:**
 

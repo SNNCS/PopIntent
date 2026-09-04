@@ -1,4 +1,4 @@
-import { cp, mkdir, readFile, rm, writeFile } from "node:fs/promises";
+import { cp, mkdir, readFile, readdir, rm, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -38,6 +38,11 @@ for (const document of ["LICENSE", "PRIVACY.md", "README.md"]) {
   await cp(path.join(projectRoot, document), path.join(distDir, document));
 }
 await cp(path.join(projectRoot, "docs"), path.join(distDir, "docs"), { recursive: true });
+for (const document of await readdir(path.join(distDir, "docs"))) {
+  if (/^MANUAL_VALIDATION_.*\.md$/.test(document)) {
+    await rm(path.join(distDir, "docs", document));
+  }
+}
 
 await build({
   entryPoints: { "background/service-worker": path.join(projectRoot, "src/background/service-worker.ts") },
