@@ -83,8 +83,10 @@ There is no account, server, telemetry, advertising, analytics SDK, remote code,
 ## Certification notes
 
 - Tester credentials, accounts, or additional information required: No.
-- Partner Center certification text: `No Certification Notes required`.
+- Partner Center now requires certification notes for every submission. Use the reviewer context below verbatim for 0.1.1.
 
-Reviewer context for future submissions: PopIntent performs all detection locally and makes no application-initiated network requests. The packaged static redirector ruleset is empty. The extension's main behavior is exercised by opening normal links and pages that attempt script-created popup tabs. Strict mode is intentionally more aggressive; Default mode is designed to avoid breaking ambiguous sign-in, payment, and document flows.
+**Partner Center certification text:**
+
+> No credentials or accounts are required. PopIntent performs all detection locally and makes no application-initiated network requests. To exercise the main behavior, open the Safe test page from the extension popup or visit https://snncs.github.io/PopIntent/test/. The page provides harmless scenarios for an unexpected popup, an intentional popup, and a transparent click overlay. Default mode is designed to preserve ambiguous sign-in, payment, and document flows. Strict mode is intentionally more aggressive and also applies a brief tab-scoped guard to high-confidence unrelated third-party same-tab redirects. The packaged static redirector ruleset is empty. All executable code is included in the extension package.
 
 See [PUBLIC_BETA_LAUNCH.md](PUBLIC_BETA_LAUNCH.md) for the post-certification discovery plan.
