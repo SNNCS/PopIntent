@@ -37,6 +37,7 @@ See [PRIVACY.md](PRIVACY.md) for the exact data inventory.
 ## Distribution status
 
 - **Project site:** [See how PopIntent works and run the harmless protection test](https://snncs.github.io/PopIntent/).
+- **Problem-first guides:** [Fix random tabs in Edge](https://snncs.github.io/PopIntent/guides/edge-opens-random-tabs/) and [stop unwanted redirects in Edge](https://snncs.github.io/PopIntent/guides/stop-redirects-in-edge/).
 - **Microsoft Edge Add-ons:** [PopIntent Beta](https://microsoftedge.microsoft.com/addons/detail/laodoihicammlibklbcfafhpkkgabdji) is Live and Public at version 0.1.0; 0.1.1 is the next release candidate.
 - **Chrome Web Store:** the Beta remains unlisted and is not affected by the Edge submission.
 - **Source build:** developers and controlled testers can continue to load the unpacked build.

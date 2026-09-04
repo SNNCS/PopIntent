@@ -18,6 +18,8 @@ Partner Center now shows the listing as Live and Public. Public discovery is an 
 Prepared launch surfaces:
 
 - Public site and harmless protection test: https://snncs.github.io/PopIntent/
+- Symptom-led search guides for random tabs and unwanted Edge redirects.
+- IndexNow ownership proof and URL submission record: [INDEXNOW.md](INDEXNOW.md).
 - Structured feedback form: https://github.com/SNNCS/PopIntent/issues/new?template=redirect-report.yml
 - Store screenshots: Settings, active popup controls, and an unexpected-tab notice.
 - Reproducible 0.1.1 Beta artifact with a SHA-256 sidecar.
