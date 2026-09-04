@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://snncs.github.io/PopIntent/</loc><lastmod>2026-09-03</lastmod></url>
+  <url><loc>https://snncs.github.io/PopIntent/</loc><lastmod>2026-09-04</lastmod></url>
   <url><loc>https://snncs.github.io/PopIntent/test/</loc><lastmod>2026-09-03</lastmod></url>
   <url><loc>https://snncs.github.io/PopIntent/guides/edge-opens-random-tabs/</loc><lastmod>2026-09-03</lastmod></url>
+  <url><loc>https://snncs.github.io/PopIntent/guides/stop-redirects-in-edge/</loc><lastmod>2026-09-04</lastmod></url>
 </urlset>
