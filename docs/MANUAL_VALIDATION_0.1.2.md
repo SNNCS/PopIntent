@@ -4,7 +4,7 @@ Date: 2026-09-04 (Asia/Kuala_Lumpur)
 
 ## Status
 
-Pending exact-artifact browser validation. Automated checks pass in both bundled Chromium and Microsoft Edge Stable; the packaged Beta must still be loaded and checked manually before certification.
+Pending manual exact-artifact browser validation. The final ZIP extraction passed all 22 automated E2E checks in Microsoft Edge Stable 152.0.4191.62; the packaged Beta must still be loaded into the existing Edge profile and checked manually before certification.
 
 ## Candidate artifact
 
@@ -14,6 +14,11 @@ Pending exact-artifact browser validation. Automated checks pass in both bundled
 - Manifest version: `0.1.2`
 - Manifest version name: `0.1.2-beta`
 - Archive hash and sidecar matched before extraction.
+
+## Automated exact-artifact result
+
+- Microsoft Edge Stable 152.0.4191.62: 22/22 E2E checks passed.
+- Includes the 500ms delayed same-tab redirect and the 0ms rule-installation race regression.
 
 ## Required checks
 
