@@ -15,6 +15,7 @@ Record the date, submitted URLs, and HTTP response after each manual submission.
 
 - Key file check: HTTP 200 with exact key content.
 - IndexNow response: HTTP 202, accepted with key validation pending.
+- Follow-up submission: HTTP 200 after the public key file was validated.
 - Submitted URLs:
   - `https://snncs.github.io/PopIntent/`
   - `https://snncs.github.io/PopIntent/test/`
