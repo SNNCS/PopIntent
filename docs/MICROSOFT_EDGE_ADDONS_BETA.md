@@ -12,6 +12,7 @@ Status as of 2026-09-03 (Asia/Kuala_Lumpur):
 - Product ID: `58582884-e4ff-411d-926b-2da31e5fc1b8`
 - Current live submission: version 0.1.0, **Live**, **Public**.
 - Next candidate: version 0.1.1 privacy, onboarding, and release-tooling update.
+- 0.1.1 Partner Center draft: package uploaded and verified on 2026-09-03; Public visibility and all 241 markets preserved; not yet submitted for certification.
 
 Partner Center confirmed Public visibility on 2026-09-03. The visibility submission did not change the 0.1.0 package, permissions, privacy disclosures, markets, pricing, or in-product purchase status.
 

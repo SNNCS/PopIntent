@@ -21,6 +21,7 @@ Prepared launch surfaces:
 - Structured feedback form: https://github.com/SNNCS/PopIntent/issues/new?template=redirect-report.yml
 - Store screenshots: Settings, active popup controls, and an unexpected-tab notice.
 - Reproducible 0.1.1 Beta artifact with a SHA-256 sidecar.
+- Microsoft accepted the 0.1.1 ZIP in the Partner Center draft; final store copy, screenshots, manual stable-browser sign-off, and certification submission remain pending.
 
 ## Positioning
 
